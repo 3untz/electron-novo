@@ -1,0 +1,6 @@
+opt
+pip
+wheel
+
+# Cython is used by hidapi during build time, but can be uninstalled
+Cython
