@@ -128,7 +128,6 @@ class ElectrumGui(QObject, PrintError):
         self.gc_timer = QTimer(self); self.gc_timer.setSingleShot(True); self.gc_timer.timeout.connect(ElectrumGui.gc); self.gc_timer.setInterval(500) #msec
         self.nd = None
         self._last_active_window = None  # we remember the last activated ElectrumWindow as a Weak.ref
-        Address.show_cashaddr(self.is_cashaddr())
         # Dark Theme -- ideally set this before any widgets are created.
         self.set_dark_theme_if_needed()
         # /
@@ -911,30 +910,6 @@ class ElectrumGui(QObject, PrintError):
                 self.tray.showMessage("Electron Cash", message, QIcon(":icons/electron-cash.svg"), 20000)
             except TypeError:
                 self.tray.showMessage("Electron Cash", message, QSystemTrayIcon.Information, 20000)
-
-    def is_cashaddr(self):
-        return bool(self.config.get('show_cashaddr', True))
-
-    def toggle_cashaddr(self, on = None):
-        was = self.is_cashaddr()
-        if on is None:
-            on = not was
-        else:
-            on = bool(on)
-        self.config.set_key('show_cashaddr', on)
-        Address.show_cashaddr(on)
-        if was != on:
-            self.cashaddr_toggled_signal.emit()
-
-    def is_cashaddr_status_button_hidden(self):
-        return bool(self.config.get('hide_cashaddr_button', False))
-
-    def set_cashaddr_status_button_hidden(self, b):
-        b = bool(b)
-        was = self.is_cashaddr_status_button_hidden()
-        if was != b:
-            self.config.set_key('hide_cashaddr_button', bool(b))
-            self.cashaddr_status_button_hidden_signal.emit(b)
 
     @property
     def windows_qt_use_freetype(self):
