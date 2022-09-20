@@ -534,7 +534,7 @@ class Blockchain(util.PrintError):
 
             return networks.net.asert_daa.next_bits_aserti3_2d(anchor.bits,
                                                                prev_ts - anchor.prev_time,
-                                                               prevheight - anchor.height)
+                                                               prevheight - anchor.height, height)
 
         N_BLOCKS = networks.net.LEGACY_POW_RETARGET_BLOCKS  # Normally 2016
         if height % N_BLOCKS == 0:

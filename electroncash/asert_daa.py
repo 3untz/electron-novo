@@ -64,6 +64,8 @@ class ASERTDaa:
 
     IDEAL_BLOCK_TIME = 150  # 150 seconds
     HALF_LIFE = 2 * 24 * 3600  # for mainnet, testnet has 3600 (1 hour) half-life
+    UNSTEADY_HALF_LIFE = 3600
+    STEADY_ASERT_HEIGHT = 130000
     # Integer implementation uses these for fixed point math
     RBITS = 16  # number of bits after the radix for fixed-point math
     RADIX = 1 << RBITS
@@ -112,7 +114,7 @@ class ASERTDaa:
         h = hex(target)[2:]
         return '0' * (64 - len(h)) + h
 
-    def next_bits_aserti3_2d(self, anchor_bits: int, time_diff: Union[float, int], height_diff: int) -> int:
+    def next_bits_aserti3_2d(self, anchor_bits: int, time_diff: Union[float, int], height_diff: int, height: int) -> int:
         """ Integer ASERTI algorithm, based on Jonathan Toomim's
         `next_bits_aserti` implementation in mining.py (see
         https://github.com/jtoomim/difficulty) """
@@ -129,7 +131,8 @@ class ASERTDaa:
         # uses a 64-bit signed integer for the exponent. If inputs violate that,
         # then the implementation will diverge.
         assert(abs(time_diff - self.IDEAL_BLOCK_TIME * (height_diff+1)) < (1<<(63-self.RBITS)))
-        exponent = int(((time_diff - self.IDEAL_BLOCK_TIME*(height_diff+1)) * self.RADIX) / self.HALF_LIFE)
+        halflife = self.HALF_LIFE if height > self.STEADY_ASERT_HEIGHT else self.UNSTEADY_HALF_LIFE
+        exponent = int(((time_diff - self.IDEAL_BLOCK_TIME*(height_diff+1)) * self.RADIX) / halflife)
 
         # Next, we use the 2^x = 2 * 2^(x-1) identity to shift our exponent into the (0, 1] interval.
         shifts = exponent >> self.RBITS
