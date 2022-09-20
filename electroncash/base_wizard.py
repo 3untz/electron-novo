@@ -284,7 +284,7 @@ class BaseWizard(util.PrintError):
             # This is partially compatible with BIP45; assumes index=0
             default_derivation = "m/45'/0"
         else:
-            default_derivation = keystore.bip44_derivation_145(0)
+            default_derivation = keystore.bip44_derivation(0)
         self.derivation_dialog(f, default_derivation)
 
     def derivation_dialog(self, f, default_derivation, seed=''):
@@ -354,7 +354,7 @@ class BaseWizard(util.PrintError):
 
     def on_restore_bip39(self, seed, passphrase):
         f = lambda x: self.run('on_bip44', seed, passphrase, str(x))
-        self.derivation_dialog(f, keystore.bip44_derivation_145(0), seed)
+        self.derivation_dialog(f, keystore.bip44_derivation(0), seed)
 
     def create_keystore(self, seed, passphrase):
         # auto-detect, prefers old, electrum, bip39 in that order. Since we
