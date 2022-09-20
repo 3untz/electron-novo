@@ -373,9 +373,6 @@ def multisig_script(public_keys, m):
 
 class Transaction:
 
-    SIGHASH_FORKID = 0x40  # do not use this; deprecated
-    FORKID = 0x000000  # do not use this; deprecated
-
     def __str__(self):
         if self.raw is None:
             self.raw = self.serialize()
@@ -692,7 +689,7 @@ class Transaction:
     def nHashType(cls):
         '''Hash type in hex.'''
         warnings.warn("warning: deprecated tx.nHashType()", FutureWarning, stacklevel=2)
-        return 0x01 | (cls.SIGHASH_FORKID + (cls.FORKID << 8))
+        return 1
 
     def invalidate_common_sighash_cache(self):
         ''' Call this to invalidate the cached common sighash (computed by
@@ -746,9 +743,9 @@ class Transaction:
         self._cached_sighash_tup = meta, res
         return res
 
-    def serialize_preimage(self, i, nHashType=0x00000041, use_cache = False):
+    def serialize_preimage(self, i, nHashType=0x00000001, use_cache = False):
         """ See `.calc_common_sighash` for explanation of use_cache feature """
-        if (nHashType & 0xff) != 0x41:
+        if (nHashType & 0xff) != 1:
             raise ValueError("other hashtypes not supported; submit a PR to fix this!")
 
         nVersion = int_to_hex(self.version, 4)
@@ -971,7 +968,7 @@ class Transaction:
         '''Note: precondition is self._inputs is valid (ie: tx is already deserialized)'''
         pubkey = public_key_from_private_key(sec, compressed)
         # add signature
-        nHashType = 0x00000041 # hardcoded, perhaps should be taken from unsigned input dict
+        nHashType = 0x00000001 # hardcoded, perhaps should be taken from unsigned input dict
         pre_hash = Hash(bfh(self.serialize_preimage(i, nHashType, use_cache=use_cache)))
         if self._sign_schnorr:
             sig = self._schnorr_sign(pubkey, sec, pre_hash, ndata=ndata)
@@ -1367,7 +1364,7 @@ class OPReturn:
         from .i18n import _
         if not isinstance(op_return, str):
             raise OPReturn.Error('OP_RETURN parameter needs to be of type str!')
-        op_return_code = "OP_RETURN "
+        op_return_code = "OP_FALSE OP_RETURN "
         op_return_encoded = op_return.encode('utf-8')
         if len(op_return_encoded) > 220:
             raise OPReturn.TooLarge(_("OP_RETURN message too large, needs to be no longer than 220 bytes"))
