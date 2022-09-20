@@ -46,7 +46,7 @@ def inv_dict(d):
 
 
 DEFAULT_BASE_UNIT = "NOVO"
-base_units = {'NOVO': 4, 'mNOVO': 2, 'sats': 1}
+base_units = {'NOVO': 4, 'mNOVO': 1, 'sats': 0}
 
 inv_base_units = {}
 base_unit_labels = tuple()

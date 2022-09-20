@@ -40,7 +40,7 @@ class AbstractNet:
     LEGACY_POW_TARGET_TIMESPAN = 14 * 24 * 60 * 60   # 2 weeks
     LEGACY_POW_TARGET_INTERVAL = 10 * 60  # 10 minutes
     LEGACY_POW_RETARGET_BLOCKS = LEGACY_POW_TARGET_TIMESPAN // LEGACY_POW_TARGET_INTERVAL  # 2016 blocks
-    BASE_UNITS = {'NOVO': 4, 'mNOVO': 2, 'sats': 1}
+    BASE_UNITS = {'NOVO': 4, 'mNOVO': 1, 'sats': 0}
     DEFAULT_UNIT = "NOVO"
 
 
@@ -55,7 +55,7 @@ class MainNet(AbstractNet):
     GENESIS = "0000000000b3de1ef5bd7c20708dbafc3df0441877fa4a59cda22b4c2d4f39ce"
     DEFAULT_PORTS = {'t': '50001', 's': '50002'}
     DEFAULT_SERVERS = _read_json_dict('servers.json')  # DO NOT MODIFY IN CLIENT CODE
-    TITLE = 'Electron NOVO'
+    TITLE = 'Electron Novo'
 
     # Bitcoin Cash fork block specification
     BITCOIN_CASH_FORK_BLOCK_HEIGHT = 478559
