@@ -745,15 +745,6 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, PrintError):
         raw_transaction_menu.addAction(_("From the &Blockchain") + "...", self.do_process_from_txid, QKeySequence("Ctrl+B"))
         raw_transaction_menu.addAction(_("From &QR Code") + "...", self.read_tx_from_qrcode)
         self.raw_transaction_menu = raw_transaction_menu
-        tools_menu.addSeparator()
-        if ColorScheme.dark_scheme and sys.platform != 'darwin':  # use dark icon in menu except for on macOS where we can't be sure it will look right due to the way menus work on macOS
-            icon = QIcon(":icons/cashacct-button-darkmode.png")
-        else:
-            icon = QIcon(":icons/cashacct-logo.png")
-        tools_menu.addAction(icon, _("Lookup &Cash Account..."), self.lookup_cash_account_dialog, QKeySequence("Ctrl+L"))
-        tools_menu.addAction(icon, _("&Register Cash Account..."), lambda: self.register_new_cash_account(addr='pick'), QKeySequence("Ctrl+G"))
-        icon = QIcon(":icons/lns.png")
-        tools_menu.addAction(icon, _("Lookup &LNS Name..."), self.lookup_lns_dialog, QKeySequence("Ctrl+Shift+L"))
         run_hook('init_menubar_tools', self, tools_menu)
 
         help_menu = menubar.addMenu(_("&Help"))
@@ -1154,74 +1145,6 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, PrintError):
 
         grid.addWidget(label, 0, 0)
 
-        # Cash Account for this address (if any)
-        msg = _("The Cash Account (if any) associated with this address. It doesn't get saved with the request, but it is shown here for your convenience.\n\nYou may use the Cash Accounts button to register a new Cash Account for this address.")
-        label = HelpLabel(_('Cash Accoun&t'), msg)
-        class CashAcctE(ButtonsLineEdit):
-            my_network_signal = pyqtSignal(str, object)
-            ''' Inner class encapsulating the Cash Account Edit.s
-            Note:
-                 - `slf` in this class is this instance.
-                 - `self` is wrapping class instance. '''
-            def __init__(slf, *args):
-                super().__init__(*args)
-                slf.font_default_size = slf.font().pointSize()
-                icon = ":icons/cashacct-button-darkmode.png" if ColorScheme.dark_scheme else ":icons/cashacct-logo.png"
-                slf.ca_but = slf.addButton(icon, self.register_new_cash_account, _("Register a new Cash Account for this address"))
-                slf.ca_copy_b = slf.addCopyButton()
-                slf.setReadOnly(True)
-                slf.info = None
-                slf.cleaned_up = False
-                self.network_signal.connect(slf.on_network_qt)
-                slf.my_network_signal.connect(slf.on_network_qt)
-                if self.wallet.network:
-                    self.wallet.network.register_callback(slf.on_network, ['ca_updated_minimal_chash'])
-            def clean_up(slf):
-                slf.cleaned_up = True
-                try: self.network_signal.disconnect(slf.on_network_qt)  # need to disconnect parent signals due to PyQt bugs, see #1531
-                except TypeError: pass
-                if self.wallet.network:
-                    self.wallet.network.unregister_callback(slf.on_network)
-            def set_cash_acct(slf, info: cashacct.Info = None, minimal_chash = None):
-                if not info and self.receive_address:
-                    minimal_chash = None
-                    ca_list = self.wallet.cashacct.get_cashaccounts(domain=[self.receive_address])
-                    ca_list.sort(key=lambda x: ((x.number or 0), str(x.collision_hash)))
-                    info = self.wallet.cashacct.get_address_default(ca_list)
-                if info:
-                    slf.ca_copy_b.setDisabled(False)
-                    f = slf.font(); f.setItalic(False); f.setPointSize(slf.font_default_size); slf.setFont(f)
-                    slf.setText(info.emoji + "  " + self.wallet.cashacct.fmt_info(info, minimal_chash=minimal_chash))
-                else:
-                    slf.setText(pgettext("Referencing CashAccount", "None"))
-                    f = slf.font(); f.setItalic(True); f.setPointSize(slf.font_default_size-1); slf.setFont(f)
-                    slf.ca_copy_b.setDisabled(True)
-                slf.info = info
-            def on_copy(slf):
-                ''' overrides super class '''
-                QApplication.instance().clipboard().setText(slf.text()[3:] + ' ' + slf.text()[:1]) # cut off the leading emoji, and add it to the end
-                QToolTip.showText(QCursor.pos(), _("Cash Account copied to clipboard"), slf)
-            def on_network_qt(slf, event, args=None):
-                ''' pick up cash account changes and update receive tab. Called
-                from GUI thread. '''
-                if not args or self.cleaned_up or slf.cleaned_up or args[0] != self.wallet.cashacct:
-                    return
-                if event == 'ca_verified_tx' and self.receive_address and self.receive_address == args[1].address:
-                    slf.set_cash_acct()
-                elif event == 'ca_updated_minimal_chash' and slf.info and slf.info.address == args[1].address:
-                    slf.set_cash_acct()
-            def on_network(slf, event, *args):
-                if event == 'ca_updated_minimal_chash' and args[0] == self.wallet.cashacct:
-                    slf.my_network_signal.emit(event, args)
-            def showEvent(slf, e):
-                super().showEvent(e)
-                if e.isAccepted():
-                    slf.set_cash_acct()
-        self.cash_account_e = CashAcctE()
-        label.setBuddy(self.cash_account_e)
-        grid.addWidget(label, 1, 0)
-        grid.addWidget(self.cash_account_e, 1, 1, 1, -1)
-
 
         self.receive_message_e = QLineEdit()
         label = QLabel(_('&Description'))
@@ -1507,7 +1430,6 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, PrintError):
         if self.receive_address:
             text = self.receive_address.to_full_ui_string()
         self.receive_address_e.setText(text)
-        self.cash_account_e.set_cash_acct()
 
     @rate_limited(0.250, ts_after=True)  # this function potentially re-computes the QR widget, so it's rate limited to once every 250ms
     def check_and_reset_receive_address_if_needed(self):
@@ -2214,46 +2136,6 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, PrintError):
             return False
         return True
 
-    def _warn_if_legacy_address(self):
-        """Show a warning if self.payto_e has legacy addresses, since the user
-        might be trying to send BTC instead of BCH."""
-        warn_legacy_address = bool(self.config.get("warn_legacy_address", True))
-        if not warn_legacy_address:
-            return
-        for line in self.payto_e.lines():
-            line = line.strip()
-            if line.lower().startswith(networks.net.CASHADDR_PREFIX + ":"):
-                line = line.split(":", 1)[1]  # strip "bitcoincash:" prefix
-            if "," in line:
-                # if address, amount line, strip address out and ignore rest
-                line = line.split(",", 1)[0]
-            line = line.strip()
-            if Address.is_legacy(line):
-                msg1 = (
-                    _("You are about to send BCH to a legacy address.")
-                    + "<br><br>"
-                    + _("Legacy addresses are deprecated for Novo "
-                        "(BCH), but they are used by Bitcoin (BTC).")
-                )
-                msg2 = _("Proceed if what you intend to do is to send BCH.")
-                msg3 = _("If you intend to send BTC, close the application "
-                         "and use a BTC wallet instead. Electron Novo is a "
-                         "BCH wallet, not a BTC wallet.")
-                res = self.msg_box(
-                    parent=self,
-                    icon=QMessageBox.Warning,
-                    title=_("You are sending to a legacy address"),
-                    rich_text=True,
-                    text=msg1,
-                    informative_text=msg2,
-                    detail_text=msg3,
-                    checkbox_text=_("Never show this again"),
-                    checkbox_ischecked=False,
-                )
-                if res[1]:  # Never ask if checked
-                    self.config.set_key("warn_legacy_address", False)
-                break
-
     def do_preview(self):
         self.do_send(preview = True)
 
@@ -2267,8 +2149,6 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, PrintError):
 
         if not self._chk_no_segwit_suspects():
             return
-
-        self._warn_if_legacy_address()
 
         if not self.payto_e.is_paycode:
             r = self.read_send_tab()
@@ -4906,7 +4786,7 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, PrintError):
             self.wallet.thread.stop()
             self.wallet.thread.wait() # Join the thread to make sure it's really dead.
 
-        for w in [self.address_list, self.history_list, self.utxo_list, self.cash_account_e, self.contact_list,
+        for w in [self.address_list, self.history_list, self.utxo_list, self.contact_list,
                   self.tx_update_mgr]:
             if w: w.clean_up()  # tell relevant object to clean itself up, unregister callbacks, disconnect signals, etc
 
