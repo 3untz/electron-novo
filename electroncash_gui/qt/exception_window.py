@@ -57,7 +57,7 @@ issue_template = """<h2>Traceback</h2>
   <li>Locale: {locale}</li>
 </ul>
 """
-report_server = "https://crashhub.electroncash.org/crash"
+report_server = ""
 
 
 class Exception_Window(QWidget):
@@ -79,6 +79,11 @@ class Exception_Window(QWidget):
         l.setWordWrap(True)
         main_box.addWidget(l)
 
+        l = QLabel(_('Please report the problem on <a href="https://github.com/3untz/electron-novo/issues">GitHub</a>.'))
+        l.setWordWrap(True)
+        l.setOpenExternalLinks(True)
+        main_box.addWidget(l)
+"""
         l = QLabel(_('To help us diagnose and fix the problem, you can send us'
                      ' a bug report that contains useful debug information:'))
         l.setWordWrap(True)
@@ -93,6 +98,7 @@ class Exception_Window(QWidget):
         label.setWordWrap(True)
         label.setTextFormat(QtCore.Qt.RichText)
         main_box.addWidget(label)
+"""
 
         self.description_textfield = QTextEdit()
         self.description_textfield.setAcceptRichText(False)  # Force plain 'ol text descriptions.. no rich-text pastes
