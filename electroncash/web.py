@@ -38,33 +38,15 @@ from . import cashacct
 from .i18n import _
 
 
-DEFAULT_EXPLORER = "Blockchair.com"
+DEFAULT_EXPLORER = "Novoexplorer.com"
 
 mainnet_block_explorers = {
-    'Blockchair.com': ('https://blockchair.com/bitcoin-cash',
-                       Address.FMT_CASHADDR,
-                       {'tx': 'transaction', 'addr': 'address', 'block' : 'block'}),
-    'BTC.com': ('https://bch.btc.com',
-                       Address.FMT_CASHADDR,
-                       {'tx': '', 'addr': '', 'block' : 'block'}),
-    'ViaBTC.com': ('https://explorer.viawallet.com/bch',
-                   Address.FMT_CASHADDR,
-                   {'tx': 'tx', 'addr': 'address', 'block' : 'block'}),
-    'BlockExplorer.one': ('https://blockexplorer.one/bch/mainnet',
-                   Address.FMT_CASHADDR,
-                   {'tx': 'tx', 'addr': 'address', 'block' : 'blockHash'}),
-    'electroncash.de': ('https://explorer.electroncash.de',
-                        Address.FMT_CASHADDR,
-                        {'tx': 'tx', 'addr': 'address', 'block': 'block-height'}),
-    'Blockchain.com': ('https://www.blockchain.com/bch',
-                       Address.FMT_CASHADDR,
-                       {'tx': 'tx', 'addr': 'address', 'block': 'block'}),
-    'Bitcoin Unlimited': ('https://explorer.bitcoinunlimited.info',
-                          Address.FMT_CASHADDR,
-                          {'tx': 'tx', 'addr': 'address', 'block': 'block-height'}),
-    'Loping.net': ('https://bch.loping.net',
-                   Address.FMT_CASHADDR,
-                   {'tx': 'tx', 'addr': 'address', 'block': 'block-height'}),
+    'Novoexplorer.com': ('novoexplorer.com',
+                       Address.FMT_LEGACY,
+                       {'tx': 'tx', 'addr': 'address', 'block' : 'block'}),
+    'Novochain.ovh': ('explorer.novochain.ovh',
+                       Address.FMT_LEGACY,
+                       {'tx': 'tx', 'addr': 'address', 'block' : 'block'}),
 }
 
 DEFAULT_EXPLORER_TESTNET = 'Blockchain.com'
