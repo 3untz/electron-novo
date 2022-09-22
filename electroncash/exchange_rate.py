@@ -380,7 +380,7 @@ class FxThread(ThreadJob):
     @staticmethod
     def is_supported():
         """Fiat currency is only supported on BCH MainNet, for all other chains it is not supported."""
-        return not networks.net.TESTNET
+        return False
 
     def is_enabled(self):
         return bool(self.is_supported() and self.config.get('use_exchange_rate', DEFAULT_ENABLED))
