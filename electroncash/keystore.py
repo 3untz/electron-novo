@@ -398,7 +398,7 @@ class BIP32_KeyStore(Deterministic_KeyStore, Xpub):
 
     def has_derivation(self) -> bool:
         """ Note: the derivation path may not always be saved. Older versions
-        of Electron Cash would not save the path to keystore :/. """
+        of Electron Novo would not save the path to keystore :/. """
         return bool(self.derivation)
 
     def is_watching_only(self):

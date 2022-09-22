@@ -81,7 +81,7 @@ def _get_little_endian_low64(b: bytes) -> int:
 
 
 def target_to_bits(target: int) -> int:
-    # arith_uint256::GetCompact in Bitcoin Cash Node
+    # arith_uint256::GetCompact in Novo Node
     # see https://gitlab.com/bitcoin-cash-node/bitcoin-cash-node/-/blob/v24.0.0/src/arith_uint256.cpp#L230
     if not (0 <= target < (1 << 256)):
         raise Exception(f"target should be uint256. got {target!r}")
@@ -105,7 +105,7 @@ def target_to_bits(target: int) -> int:
 
 
 def bits_to_target(ncompact: int) -> int:
-    # arith_uint256::SetCompact in Bitcoin Cash Node
+    # arith_uint256::SetCompact in Novo Node
     # see https://gitlab.com/bitcoin-cash-node/bitcoin-cash-node/-/blob/v24.0.0/src/arith_uint256.cpp#L208
     if not (0 <= ncompact < (1 << 32)):
         raise Exception(f"ncompact should be uint32. got {ncompact!r}")

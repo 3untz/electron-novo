@@ -1,4 +1,4 @@
-# Electron Cash Android app
+# Electron Novo Android app
 
 To start developing the app, just open this directory in Android Studio.
 

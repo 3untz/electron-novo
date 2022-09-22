@@ -482,7 +482,7 @@ class Interface(util.PrintError):
                         # of the client.  We will tolerate this and simply
                         # discard the message in that case.
                         #
-                        # Electron Cash:
+                        # Electron Novo:
                         #   https://github.com/Electron-Cash/Electron-Cash/issues/1774
                         # Fulcrum:
                         #   https://github.com/cculianu/Fulcrum/issues/20

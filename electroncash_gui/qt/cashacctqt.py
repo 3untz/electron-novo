@@ -1,7 +1,7 @@
 ##!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-# Electron Cash - A Bitcoin Cash SPV Wallet
+# Electron Novo - A Novo SPV Wallet
 # This file Copyright (c) 2019 Calin Culianu <calin.culianu@gmail.com>
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -166,7 +166,7 @@ def resolve_cashacct(parent : MessageBoxMixin, name : str, wallet : Abstract_Wal
         if not isinstance(info.address, Address):
             raise Bad(_("Unsupported payment data type.") + "\n\n"
                       + _("The Cash Account {name} uses an account type that "
-                          "is not supported by Electron Cash.").format(name=name))
+                          "is not supported by Electron Novo.").format(name=name))
         return info, name
     except Bad as e:
         parent.show_error(str(e))
@@ -399,7 +399,7 @@ class InfoGroupBox(PrintError, QGroupBox):
             if not isinstance(info.address, Address):
                 rb.setDisabled(True)
                 is_valid = False
-                rb.setToolTip(_('Electron Cash currently only supports Cash Account types 1 & 2'))
+                rb.setToolTip(_('Electron Novo currently only supports Cash Account types 1 & 2'))
             elif wallet.is_mine(info.address):
                 is_mine = True
                 is_change = wallet.is_change(info.address)
@@ -584,7 +584,7 @@ def lookup_cash_account_dialog(
 
 
     #acct.setFixedWidth(280)
-    label = HelpLabel(_("&Cash Account Name"), _("Enter a Cash Account name of the form Name#123.45, and Electron Cash will search for the contact and present you with its resolved address."))
+    label = HelpLabel(_("&Cash Account Name"), _("Enter a Cash Account name of the form Name#123.45, and Electron Novo will search for the contact and present you with its resolved address."))
     label.setBuddy(acct)
     search = QPushButton(_("Lookup"))
     search.setEnabled(False)
@@ -780,7 +780,7 @@ def cash_account_detail_dialog(parent : MessageBoxMixin,  # Should be an Electru
     if not isinstance(info.address, Address):
         parent.show_error(_("Unsupported payment data type.") + "\n\n"
                           + _("The Cash Account {name} uses an account type that "
-                              "is not supported by Electron Cash.").format(name=ca_string))
+                              "is not supported by Electron Novo.").format(name=ca_string))
         return False
 
     title = title or _("Cash Account Details")

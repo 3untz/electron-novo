@@ -7,10 +7,10 @@
 ;--------------------------------
 ;Variables
 
-  !define PRODUCT_NAME "Electron Cash"
+  !define PRODUCT_NAME "Electron Novo"
   !define INTERNAL_NAME "Electron-Cash"
   !define PRODUCT_WEB_SITE "https://github.com/Electron-Cash/Electron-Cash"
-  !define PRODUCT_PUBLISHER "Electron Cash LLC"
+  !define PRODUCT_PUBLISHER "Electron Novo LLC"
   !define INSTDIR_REG_ROOT "HKCU"
   !define INSTDIR_REG_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}"
 
@@ -142,7 +142,7 @@ Function .onInit
   noinstdir:
   ClearErrors
 
-  ; Request uninstallation of an old Electron Cash installation
+  ; Request uninstallation of an old Electron Novo installation
   ReadRegStr $R0 ${INSTDIR_REG_ROOT} "${INSTDIR_REG_KEY}" UninstallString
   ReadRegStr $R1 ${INSTDIR_REG_ROOT} "${INSTDIR_REG_KEY}" DisplayName
   ${If} $R0 != ""
@@ -197,12 +197,12 @@ Section
   CreateShortCut "$SMPROGRAMS\${PRODUCT_NAME}\${PRODUCT_NAME} Scalenet.lnk" "$INSTDIR\${INTERNAL_NAME}.exe" "--scalenet" "$INSTDIR\${INTERNAL_NAME}.exe" 0
 
 
-  ;Links bitcoincash: URI's to Electron Cash
+  ;Links bitcoincash: URI's to Electron Novo
   WriteRegStr ${INSTDIR_REG_ROOT} "Software\Classes\bitcoincash" "" "URL:bitcoincash Protocol"
   WriteRegStr ${INSTDIR_REG_ROOT} "Software\Classes\bitcoincash" "URL Protocol" ""
   WriteRegStr ${INSTDIR_REG_ROOT} "Software\Classes\bitcoincash" "DefaultIcon" "$\"$INSTDIR\electron.ico, 0$\""
   WriteRegStr ${INSTDIR_REG_ROOT} "Software\Classes\bitcoincash\shell\open\command" "" "$\"$INSTDIR\${INTERNAL_NAME}.exe$\" $\"%1$\""
-  ;Links cashacct: URI's to Electron Cash
+  ;Links cashacct: URI's to Electron Novo
   WriteRegStr ${INSTDIR_REG_ROOT} "Software\Classes\cashacct" "" "URL:cashacct Protocol"
   WriteRegStr ${INSTDIR_REG_ROOT} "Software\Classes\cashacct" "URL Protocol" ""
   WriteRegStr ${INSTDIR_REG_ROOT} "Software\Classes\cashacct" "DefaultIcon" "$\"$INSTDIR\electron.ico, 0$\""

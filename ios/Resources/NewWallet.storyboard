@@ -1127,7 +1127,7 @@
                                             <constraint firstAttribute="width" constant="208" id="lxK-8b-E6P"/>
                                         </constraints>
                                         <attributedString key="attributedText">
-                                            <fragment content="Electron Cash is an SPV wallet for Bitcoin Cash">
+                                            <fragment content="Electron Novo is an SPV wallet for Novo">
                                                 <attributes>
                                                     <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <font key="NSFont" metaFont="system" size="15"/>
@@ -1738,7 +1738,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="623"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Import Bitcoin Cash Addresses or Private Keys" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lho-Xb-O6f">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Import Novo Addresses or Private Keys" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lho-Xb-O6f">
                                 <rect key="frame" x="15" y="25" width="345" height="18"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="18" id="Axd-lv-ueu"/>
@@ -1783,7 +1783,7 @@
                                         <rect key="frame" x="25" y="0.0" width="315" height="80"/>
                                         <attributedString key="attributedText">
                                             <fragment>
-                                                <string key="content">Enter a list of private keys to create a regular spending wallet. Alternatively, you can create a 'watching-only' wallet by entering a list of Bitcoin Cash addresses.</string>
+                                                <string key="content">Enter a list of private keys to create a regular spending wallet. Alternatively, you can create a 'watching-only' wallet by entering a list of Novo addresses.</string>
                                                 <attributes>
                                                     <color key="NSColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="deviceRGB"/>
                                                     <font key="NSFont" size="14" name="SFProDisplay-Italic"/>
@@ -1971,7 +1971,7 @@
                                         <rect key="frame" x="25" y="0.0" width="315" height="80"/>
                                         <attributedString key="attributedText">
                                             <fragment>
-                                                <string key="content">Enter a list of private keys to create a regular spending wallet. Alternatively, you can create a 'watching-only' wallet by entering a list of Bitcoin Cash addresses.</string>
+                                                <string key="content">Enter a list of private keys to create a regular spending wallet. Alternatively, you can create a 'watching-only' wallet by entering a list of Novo addresses.</string>
                                                 <attributes>
                                                     <color key="NSColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="deviceRGB"/>
                                                     <font key="NSFont" size="14" name="SFProDisplay-Italic"/>
@@ -2364,7 +2364,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="623"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Import Bitcoin Cash Addresses or Private Keys" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U4f-Sw-gz3">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Import Novo Addresses or Private Keys" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U4f-Sw-gz3">
                                 <rect key="frame" x="15" y="25" width="345" height="18"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="18" id="eYl-Gz-Lhs"/>
@@ -2409,7 +2409,7 @@
                                         <rect key="frame" x="25" y="0.0" width="315" height="80"/>
                                         <attributedString key="attributedText">
                                             <fragment>
-                                                <string key="content">Enter a list of private keys to create a regular spending wallet. Alternatively, you can create a 'watching-only' wallet by entering a list of Bitcoin Cash addresses.</string>
+                                                <string key="content">Enter a list of private keys to create a regular spending wallet. Alternatively, you can create a 'watching-only' wallet by entering a list of Novo addresses.</string>
                                                 <attributes>
                                                     <color key="NSColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="deviceRGB"/>
                                                     <font key="NSFont" size="14" name="SFProDisplay-Italic"/>
@@ -2597,7 +2597,7 @@
                                         <rect key="frame" x="25" y="0.0" width="315" height="80"/>
                                         <attributedString key="attributedText">
                                             <fragment>
-                                                <string key="content">Enter a list of private keys to create a regular spending wallet. Alternatively, you can create a 'watching-only' wallet by entering a list of Bitcoin Cash addresses.</string>
+                                                <string key="content">Enter a list of private keys to create a regular spending wallet. Alternatively, you can create a 'watching-only' wallet by entering a list of Novo addresses.</string>
                                                 <attributes>
                                                     <color key="NSColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="deviceRGB"/>
                                                     <font key="NSFont" size="14" name="SFProDisplay-Italic"/>

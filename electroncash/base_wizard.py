@@ -85,7 +85,7 @@ class BaseWizard(util.PrintError):
         wallet_kinds = [
             ('standard',  _("Standard wallet")),
             ('multisig',  _("Multi-signature wallet")),
-            ('imported',  _("Import Bitcoin Cash addresses or private keys")),
+            ('imported',  _("Import Novo addresses or private keys")),
             ('rpa', _("Reusable payment address")),
         ]
         choices = [pair for pair in wallet_kinds if pair[0] in wallet_types]
@@ -145,7 +145,7 @@ class BaseWizard(util.PrintError):
     def import_addresses_or_keys(self):
         v = lambda x: keystore.is_address_list(x) or keystore.is_private_key_list(x, allow_bip38=True)
         title = _("Import Bitcoin Addresses")
-        message = _("Enter a list of Bitcoin Cash addresses (this will create a watching-only wallet), or a list of private keys.")
+        message = _("Enter a list of Novo addresses (this will create a watching-only wallet), or a list of private keys.")
         if bitcoin.is_bip38_available():
             message += " " + _("BIP38 encrypted keys are supported.")
         self.add_xpub_dialog(title=title, message=message, run_next=self.on_import,
@@ -292,7 +292,7 @@ class BaseWizard(util.PrintError):
             _('Enter your wallet derivation here.'),
             _('If you are not sure what this is, leave this field unchanged.'),
             _("If you want the wallet to use legacy Bitcoin addresses use m/44'/0'/0'"),
-            _("If you want the wallet to use Bitcoin Cash addresses use m/44'/145'/0'"),
+            _("If you want the wallet to use Novo addresses use m/44'/145'/0'"),
             _("The placeholder value of {} is the default derivation for {} wallets.").format(default_derivation, self.wallet_type),
         ])
         scannable = self.wallet_type == "standard" and bool(seed)
@@ -495,5 +495,5 @@ class BaseWizard(util.PrintError):
             self.wallet.synchronize()
             self.wallet.storage.write()
             self.terminate()
-        msg = _("Electron Cash is generating your addresses, please wait.")
+        msg = _("Electron Novo is generating your addresses, please wait.")
         self.waiting_dialog(task, msg)

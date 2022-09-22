@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 #
-# Electron Cash - lightweight Bitcoin Cash client
+# Electron Novo - lightweight Novo client
 # Copyright (C) 2016  The Electrum developers
-# Copyright (C) 2019  The Electron Cash developers
+# Copyright (C) 2019  The Electron Novo developers
 #
 # Permission is hereby granted, free of charge, to any person
 # obtaining a copy of this software and associated documentation files

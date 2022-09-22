@@ -88,7 +88,7 @@ class Plugin(LabelsPlugin):
                 vbox.addWidget(l)
             else:
                 # Does not have network, so we won't speak of incompatibility, but instead remind user offline mode means OFFLINE! ;)
-                l = QLabel(_("You are using Electron Cash in offline mode; restart Electron Cash if you want to get connected"))
+                l = QLabel(_("You are using Electron Novo in offline mode; restart Electron Novo if you want to get connected"))
                 l.setWordWrap(True)
                 vbox.addWidget(l)
         vbox.addSpacing(20)

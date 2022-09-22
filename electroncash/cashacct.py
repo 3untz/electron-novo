@@ -1,7 +1,7 @@
 ##!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-# Electron Cash - A Bitcoin Cash SPV Wallet
+# Electron Novo - A Novo SPV Wallet
 # This file Copyright (c) 2019 Calin Culianu <calin.culianu@gmail.com>
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -47,7 +47,7 @@ from . import verifier
 from . import blockchain
 from . import caches
 
-# 'cashacct:' URI scheme. Used by Crescent Cash and Electron Cash and
+# 'cashacct:' URI scheme. Used by Crescent Cash and Electron Novo and
 # other wallets in the future.
 URI_SCHEME = 'cashacct'
 

@@ -73,7 +73,7 @@ fun toast(resId: Int, duration: Int = TOAST_DEFAULT_DURATION,
 }
 
 
-// Workaround for Android 7.1 bug (Electron Cash issue #1528), based on
+// Workaround for Android 7.1 bug (Electron Novo issue #1528), based on
 // https://github.com/cat9/ToastCompat.
 private fun fixToastBug(toast: Toast) {
     try {

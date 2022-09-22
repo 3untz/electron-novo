@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 #
-# Electron Cash - a lightweight Bitcoin Cash client
+# Electron Novo - a lightweight Novo client
 # CashFusion - an advanced coin anonymizer
 #
 # Copyright (C) 2020 Mark B. Lundeberg
@@ -577,7 +577,7 @@ class FusionPlugin(BasePlugin):
                 # After 60 seconds it gives up and then will unreserve addresses,
                 # and currently-waiting fusions would then grab those addresses when
                 # they begin rounds.
-                self.stop_all_fusions('Lost connection to Electron Cash server', not_if_running = True)
+                self.stop_all_fusions('Lost connection to Electron Novo server', not_if_running = True)
                 return
 
         # Snapshot of autofusing list; note that remove_wallet may get

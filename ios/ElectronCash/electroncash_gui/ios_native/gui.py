@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 #
-# Electron Cash - lightweight Bitcoin Cash client
+# Electron Novo - lightweight Novo client
 # Copyright (C) 2012 thomasv@gitorious
 #
 # This file is:
@@ -1076,7 +1076,7 @@ class ElectrumGui(PrintError):
         if not self.wallet: return
         if self.wallet.is_watching_only():
             self.show_message(title = _("This is a watching-only wallet"),
-                              message = _("This means you will not be able to spend Bitcoin Cash with it."),
+                              message = _("This means you will not be able to spend Novo with it."),
                               vc = vc,
                               onOk = onOk)
 
@@ -1458,7 +1458,7 @@ class ElectrumGui(PrintError):
             self._no_wallet()
             self.refresh_all()
             self.show_message(title = _("Disk Space Low"),
-                              message = _("Electron Cash cannot proceed because this device is very low on disk space. Please free up some disk space and try again."))
+                              message = _("Electron Novo cannot proceed because this device is very low on disk space. Please free up some disk space and try again."))
             return True
         return False
 
@@ -2290,7 +2290,7 @@ class ElectrumGui(PrintError):
         except:
             import traceback
             traceback.print_exc(file=sys.stderr)
-            self.show_error(_("Electron Cash was unable to parse your transaction"))
+            self.show_error(_("Electron Novo was unable to parse your transaction"))
         return False
 
     def present_on_boarding_wizard_if_needed(self) -> ObjCInstance:
@@ -2447,7 +2447,7 @@ class ElectrumGui(PrintError):
                 sys.__excepthook__(etype, eobj, tb)
         utils.do_in_main_thread(InMain, etype, eobj, tb)
 
-    # this method is called by Electron Cash libs to start the GUI
+    # this method is called by Electron Novo libs to start the GUI
     def main(self):
         self.createAndShowUI()
 

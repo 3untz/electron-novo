@@ -1,5 +1,5 @@
-# Electron Cash - lightweight Bitcoin client
-# Copyright (C) 2017 The Electron Cash Developers
+# Electron Novo - lightweight Bitcoin client
+# Copyright (C) 2017 The Electron Novo Developers
 #
 # Permission is hereby granted, free of charge, to any person
 # obtaining a copy of this software and associated documentation files

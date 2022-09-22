@@ -1,23 +1,23 @@
-Electron-Cash-Satochip - Lightweight Bitcoin Cash client for the Satochip Hardware Wallet
+Electron-Cash-Satochip - Lightweight Novo client for the Satochip Hardware Wallet
 ==========================================================================================
 
 ::
 
   Licence: MIT Licence
-  Author: The Electron Cash Developers; Satochip portions by Toporin
+  Author: The Electron Novo Developers; Satochip portions by Toporin
   Language: Python (>= 3.6)
   Homepage:
 
 Introduction
 ============
 
-This is a fork of Electron Cash modified for use with the Satochip Hardware Wallet. To use it, you need a device with the Satochip Javacard Applet installed.
-If the wallet is not intialized yet, Electron Cash will perform the setup (you only need to do this once). During setup, a seed is created: this seed allows you to recover your wallet at anytime, so make sure to BACKUP THE SEED SECURELY! During setup, a PIN code is also created: this PIN allows to unlock th device to access your funds. If you try too many wrong PIN, your device will be locked indefinitely (it is 'bricked'). If you loose your PIN or brick your device, you can only recover your funds with the seed backup.
+This is a fork of Electron Novo modified for use with the Satochip Hardware Wallet. To use it, you need a device with the Satochip Javacard Applet installed.
+If the wallet is not intialized yet, Electron Novo will perform the setup (you only need to do this once). During setup, a seed is created: this seed allows you to recover your wallet at anytime, so make sure to BACKUP THE SEED SECURELY! During setup, a PIN code is also created: this PIN allows to unlock th device to access your funds. If you try too many wrong PIN, your device will be locked indefinitely (it is 'bricked'). If you loose your PIN or brick your device, you can only recover your funds with the seed backup.
 
 The Satochip wallet is currently in Beta, use with caution!You can use the software on the Bitcoin testnet using the --testnet option.
 This software is provided 'as-is', without any express or implied warranty. In no event will the authors be held liable for any damages arising from the use of this software.
 
-Rem: Electron Cash uses Python 3.x. In case of error, check first that you are not trying to run Electron Cash with Python 2.x or with Python 2.x libraries.
+Rem: Electron Novo uses Python 3.x. In case of error, check first that you are not trying to run Electron Novo with Python 2.x or with Python 2.x libraries.
 
 Development version (Windows 64bits)
 =====================================
@@ -47,17 +47,17 @@ Download the .whl files from https://sourceforge.net/projects/pyscard/files/pysc
 
     python -m pip install pyscard-1.9.7-cp36-cp36m-win_amd64.whl
 
-In PowerShell, run Electron Cash on the testnet (-v allows for verbose output)::
+In PowerShell, run Electron Novo on the testnet (-v allows for verbose output)::
 
     python .\electron-cash  -v --testnet
 
 
 Development version (Ubuntu)
 ==============================
-(Electron Cash requires Python 3.6, which should be installed by default on Ubuntu)
+(Electron Novo requires Python 3.6, which should be installed by default on Ubuntu)
 (If necessary, install pip: sudo apt-get install python3-pip)
 
-Electron Cash is a pure python application. To use the
+Electron Novo is a pure python application. To use the
 Qt interface, install the Qt dependencies::
 
     sudo apt-get install python3-pyqt5
@@ -80,7 +80,7 @@ Pyscard is required to connect to the smartcard::
 (For alternatives, see https://github.com/LudovicRousseau/pyscard/blob/master/INSTALL.md for more detailed installation instructions)
 
 
-To run Electron Cash on the testnet use::
+To run Electron Novo on the testnet use::
  python3 electron-cash  -v --testnet
 
 
@@ -92,5 +92,5 @@ To run the test suite, run::
     python -m unittest plugins.satochip.test_CardConnector
 
 The test suite uses the following default PIN code: "12345678".
-If you run the test suite after (or before) Electron Cash, you may block the card if the PIN used are not the same!
+If you run the test suite after (or before) Electron Novo, you may block the card if the PIN used are not the same!
 If the card is locked, you will have to reinstall the javacard applet on the card.

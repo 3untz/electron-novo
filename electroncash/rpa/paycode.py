@@ -3,7 +3,7 @@
 # -*- mode: python3 -*-
 # This file (c) 2020 Jonald Fyookball
 # With tweaks from Calin Culianu
-# Part of the Electron Cash SPV Wallet
+# Part of the Electron Novo SPV Wallet
 # License: MIT
 
 '''

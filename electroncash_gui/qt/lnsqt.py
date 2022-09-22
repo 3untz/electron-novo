@@ -1,7 +1,7 @@
 ##!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-# Electron Cash - A Bitcoin Cash SPV Wallet
+# Electron Novo - A Novo SPV Wallet
 # This file Copyright (c) 2019 Calin Culianu <calin.culianu@gmail.com>
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -166,7 +166,7 @@ def resolve_lns(parent: MessageBoxMixin, name: str, wallet: Abstract_Wallet = No
         if not isinstance(info.address, Address):
             raise Bad(_("Unsupported payment data type.") + "\n\n"
                       + _("The LNS Name {name} uses an account type that "
-                          "is not supported by Electron Cash.").format(name=name))
+                          "is not supported by Electron Novo.").format(name=name))
         return info, info.name
     except Bad as e:
         parent.show_error(str(e))
@@ -573,7 +573,7 @@ def lookup_lns_dialog(
     label2 = WWLabel('<a href="https://app.bch.domains">' + _("Search online...") + "</a>")
     label2.linkActivated.connect(webopen)
 
-    label = HelpLabel(_("&LNS Name"), _("Enter an LNS Name of the form satoshi.bch, and Electron Cash will search for "
+    label = HelpLabel(_("&LNS Name"), _("Enter an LNS Name of the form satoshi.bch, and Electron Novo will search for "
                                         "the contact and present you with its resolved address."))
     label.setBuddy(acct)
     search = QPushButton(_("Lookup"))
@@ -782,7 +782,7 @@ def lns_detail_dialog(parent: MessageBoxMixin,  # Should be an ElectrumWindow in
     if not isinstance(info.address, Address):
         parent.show_error(_("Unsupported payment data type.") + "\n\n"
                           + _("The LNS Name {name} uses an account type that "
-                              "is not supported by Electron Cash.").format(name=lns_string))
+                              "is not supported by Electron Novo.").format(name=lns_string))
         return False
 
     title = title or _("LNS Name Details")

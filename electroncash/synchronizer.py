@@ -3,8 +3,8 @@
 # Electrum - lightweight Bitcoin client
 # Copyright (C) 2014 Thomas Voegtlin
 #
-# Electron Cash - Bitcoin Cash thin client
-# Copyright (C) 2017-2022 The Electron Cash Developers
+# Electron Novo - Novo thin client
+# Copyright (C) 2017-2022 The Electron Novo Developers
 #
 # Permission is hereby granted, free of charge, to any person
 # obtaining a copy of this software and associated documentation files

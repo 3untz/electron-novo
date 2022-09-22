@@ -3,7 +3,7 @@ Building Mac OS binaries
 
 ✗ _This script does not produce reproducible output (yet!)._
 
-This guide explains how to build Electron Cash binaries for macOS systems.
+This guide explains how to build Electron Novo binaries for macOS systems.
 We build our binaries on Mojave (10.14.x) as building it on newer would
 produce binaries that are incompatible with older Macs.
 

@@ -1,5 +1,5 @@
 # This file lists translatable strings used in the Android app which don't appear anywhere else
-# in the Electron Cash repository. Some of them only differ in capitalization or punctuation:
+# in the Electron Novo repository. Some of them only differ in capitalization or punctuation:
 # see https://medium.com/@jsaito/making-a-case-for-letter-case-19d09f653c98
 #
 # Please keep the strings in alphabetical order.
@@ -19,7 +19,7 @@ _("Change password")
 _("Close wallet")
 _("Confirm password")
 _("Console")
-_("Copyright © 2017-2022 Electron Cash LLC and the Electron Cash developers.")
+_("Copyright © 2017-2022 Electron Novo LLC and the Electron Novo developers.")
 _("Current password")
 _("Cosigner %d")
 _("Delete wallet")

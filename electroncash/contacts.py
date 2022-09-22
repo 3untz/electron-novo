@@ -1,7 +1,7 @@
 ##!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-# Electron Cash - A Bitcoin Cash SPV Wallet
+# Electron Novo - A Novo SPV Wallet
 # This file Copyright (c) 2019 Calin Culianu <calin.culianu@gmail.com>
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -43,7 +43,7 @@ class Contact(namedtuple("Contact", "name address type")):
 contact_types = {'address', 'cashacct', 'lns', 'openalias'}
 
 class Contacts(util.PrintError):
-    '''Electron Cash Contacts subsystem 2.0. Lightweight class for saving/laoding
+    '''Electron Novo Contacts subsystem 2.0. Lightweight class for saving/laoding
     contacts to/from storage. This system replaces the old system which was
     a dict keyed off address, and which was limited to 1 contact per address
     and thus unusable for Cash Accounts and other features.

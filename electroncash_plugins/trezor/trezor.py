@@ -91,7 +91,7 @@ class TrezorKeyStore(Hardware_KeyStore):
         self.plugin.sign_transaction(self, tx, prev_tx, xpub_path)
 
     def needs_prevtx(self):
-        # Trezor does need previous transactions for Bitcoin Cash
+        # Trezor does need previous transactions for Novo
         return True
 
 

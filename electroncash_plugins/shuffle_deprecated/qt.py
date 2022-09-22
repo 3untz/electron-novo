@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 #
-# Cash Shuffle - CoinJoin for Bitcoin Cash
-# Copyright (C) 2018-2019 Electron Cash LLC
+# Cash Shuffle - CoinJoin for Novo
+# Copyright (C) 2018-2019 Electron Novo LLC
 #
 # Permission is hereby granted, free of charge, to any person
 # obtaining a copy of this software and associated documentation files
@@ -1267,7 +1267,7 @@ class SendTabExtraDisabled(QFrame, PrintError):
         self.txt = "<big><b>{}</b></big> &nbsp;&nbsp; {}".format(_("CashShuffle Disabled"), _("Your shuffled and unshuffled coins can be mixed and spent together."))
 
         self.msg = "{}\n\n{}\n\n{}".format(_("When CashShuffle is disabled, your privacy on the blockchain is reduced to traditional levels, and 'chainalysis' becomes easier (your transactions can be associated with one another)."),
-                                           _("This spending mode is the same as previous versions of Electron Cash, which did not offer CashShuffle."),
+                                           _("This spending mode is the same as previous versions of Electron Novo, which did not offer CashShuffle."),
                                            _("You may toggle CashShuffle back on at any time using the 'CashShuffle' icon in the status bar."))
         self.titleLabel = HelpLabel(self.txt, self.msg)
 
@@ -1729,7 +1729,7 @@ class SettingsDialogMixin(NetworkCheckerDelegateMixin, PrintError):
         if d.get('failed'): # Dict with only 1 key, 'failed' means connecton failed
             reason = d['failed']
             if reason == 'offline_mode':
-                reason = _("Electron Cash is in offline mode.")
+                reason = _("Electron Novo is in offline mode.")
             elif reason == 'bad':
                 reason = _("Server is misconfigured")
             elif reason == 'ssl':
@@ -1802,7 +1802,7 @@ class SettingsDialog(SettingsDialogMixin, AppModalDialog):
 class SettingsTab(SettingsDialogMixin, QWidget):
     # Apparently if you inherit from a C++ object first it creates problems.
     # You are supposed to inherit from the mixins in Python first, then the
-    # Qt C++ object last. Who knew. All of Electron Cash codebase apparently
+    # Qt C++ object last. Who knew. All of Electron Novo codebase apparently
     # is doing it wrong.
     # See this: http://python.6.x6.nabble.com/Issue-with-multiple-inheritance-td5207771.html
     # So we inherit from our mixin first. (Note I had problems with overriding

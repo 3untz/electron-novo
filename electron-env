@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 #
 # This script creates a virtualenv named 'env' and installs all
-# python dependencies before activating the env and running Electron Cash.
-# If 'env' already exists, it is activated and Electron Cash is started
+# python dependencies before activating the env and running Electron Novo.
+# If 'env' already exists, it is activated and Electron Novo is started
 # without any installations. Additionally, the PYTHONPATH environment
-# variable is set properly before running Electron Cash.
+# variable is set properly before running Electron Novo.
 #
 # python-qt and its dependencies will still need to be installed with
 # your package manager.

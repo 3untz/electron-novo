@@ -26,7 +26,7 @@ if False:
         _("Please write your seed phrase down, as it's the only way to recover your funds if you forget your password or your device is stolen."),
         _("Reenter your seed phrase"),
         # On-Boarding text...
-        _("Welcome to"), _("Electron Cash is an SPV wallet for Bitcoin Cash"),
+        _("Welcome to"), _("Electron Novo is an SPV wallet for Novo"),
         _("Control your own private keys"), _("Easily back up your wallet with a mnemonic seed phrase."),
         _("Enjoy high security"), _("without downloading the blockchain or running a full node."),
         _("Get Started"),
@@ -400,7 +400,7 @@ class NewWalletSeed2(NewWalletSeedBase):
                 if not self.restoreMode:
                     txt = _('Your seed is important!') + ' ' + _('To make sure that you have properly saved your seed, please retype it here.') + ' ' + _('Use the quick suggestions to save time.')
                 else:
-                    txt = _('You can restore a wallet that was created by any version of Electron Cash.')
+                    txt = _('You can restore a wallet that was created by any version of Electron Novo.')
                 utils.uilabel_replace_attributed_text(lbl, txt, font=UIFont.italicSystemFontOfSize_(14.0))
             else:
                 lbl.setText_withKerning_(_(d[lbl.ptr.value]), utils._kern)
@@ -852,10 +852,10 @@ class Import1(Import1Base):
 
         else:
             self.title = _("Import")
-            titText = _("Import Bitcoin Cash Addresses or Private Keys")
+            titText = _("Import Novo Addresses or Private Keys")
             infoText = _("Enter a list of private keys to create a regular spending wallet. " +
                          "Alternatively, you can create a 'watching-only' wallet by " +
-                         "entering a list of Bitcoin Cash addresses.")
+                         "entering a list of Novo addresses.")
         self.tit.setText_withKerning_(titText, utils._kern)
         utils.uilabel_replace_attributed_text(lbl=self.info, font = UIFont.italicSystemFontOfSize_(14.0),
                                               text = infoText)
@@ -941,7 +941,7 @@ class Import1(Import1Base):
                 if Address.is_valid(w) or bitcoin.is_private_key(w):
                     ClearErrMsg()
                     return True
-            ErrMsg( _("You appear to have entered no valid Bitcoin Cash addresses or private keys.") )
+            ErrMsg( _("You appear to have entered no valid Novo addresses or private keys.") )
         return False
 
     @objc_method
@@ -1074,7 +1074,7 @@ class Import2(Import2Base):
             cell.item.text = ii.item
             cell.num.text = str(indexPath.row + 1)
             if ii.typ == 1:
-                cell.desc.text = "Bitcoin Cash Address" + (" (watching-only)" if k and k.is_watching_only() else "")
+                cell.desc.text = "Novo Address" + (" (watching-only)" if k and k.is_watching_only() else "")
             elif ii.typ == 2:
                 cell.desc.text = "Private Key - Address: " + ii.info.to_ui_string()
             else:
@@ -1174,7 +1174,7 @@ class Import2(Import2Base):
                 if k.is_watching_only():
                     msg = _("A deterministic wallet will be created using the provided master public key. This wallet will be watching-only.")
                 else:
-                    msg = _("A deterministic wallet will be created using the provided master private key. This wallet will be able to freely send and receive Bitcoin Cash.")
+                    msg = _("A deterministic wallet will be created using the provided master private key. This wallet will be able to freely send and receive Novo.")
             else:
                 ret = False
                 msg = _("An unknown error occurred. Cannot proceed.")

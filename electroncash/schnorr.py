@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # -*- mode: python3 -*-
 # This file (c) 2019 Mark Lundeberg & Calin Culianu
-# Part of the Electron Cash SPV Wallet
+# Part of the Electron Novo SPV Wallet
 # License: MIT
 '''
 Schnorr sign/verify uses Requries libsecp256k1 acceleration if available.

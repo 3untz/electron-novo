@@ -1,8 +1,8 @@
 # Electrum - lightweight Bitcoin client
 # Copyright (C) 2015 Thomas Voegtlin
 #
-# Electron Cash - Bitcoin Cash thin client
-# Copyright (C) 2017-2022 The Electron Cash Developers
+# Electron Novo - Novo thin client
+# Copyright (C) 2017-2022 The Electron Novo Developers
 #
 # Permission is hereby granted, free of charge, to any person
 # obtaining a copy of this software and associated documentation files
@@ -102,7 +102,7 @@ def dust_threshold(network):
     # Change < dust threshold is added to the tx fee
     #return 182 * 3 * relayfee(network) / 1000 # original Electrum logic
     #return 1 # <-- was this value until late Sept. 2018
-    return 546 # hard-coded Bitcoin Cash dust threshold. Was changed to this as of Sept. 2018
+    return 546 # hard-coded Novo dust threshold. Was changed to this as of Sept. 2018
 
 
 def sweep_preparations(privkeys, network, imax=100):
@@ -334,7 +334,7 @@ class Abstract_Wallet(PrintError, SPVDelegate):
 
     def load_keystore_wrapper(self):
         """ Loads the keystore, but also tries to preserve derivation(s). Older
-        Electron Cash versions would not save the derivation for all keystore
+        Electron Novo versions would not save the derivation for all keystore
         types. So this function ensures:
 
         1. That on first run, we store the keystore_derivations to top-level
@@ -384,7 +384,7 @@ class Abstract_Wallet(PrintError, SPVDelegate):
                 elif saved_der:
                     # we had a derivation but keystore did not. This branch is
                     # taken if the user has loaded this wallet with an older
-                    # version of Electron Cash. Attempt to restore their
+                    # version of Electron Novo. Attempt to restore their
                     # derivation item in keystore.
                     keystore.derivation = der  # write to keystore
                     updated_ks = True  # tell it to re-save
@@ -1032,7 +1032,7 @@ class Abstract_Wallet(PrintError, SPVDelegate):
             #
             # In light of that fact, a possible approach would be to invalidate
             # this entire cache when a new block arrives (this is what Electrum
-            # does). However, for Electron Cash with its focus on many addresses
+            # does). However, for Electron Novo with its focus on many addresses
             # for future privacy features such as integrated CashShuffle --
             # being notified in the wallet and invalidating the *entire* cache
             # whenever a new block arrives (which is the exact time you do
@@ -1083,7 +1083,7 @@ class Abstract_Wallet(PrintError, SPVDelegate):
                     if confirmed_only and x['height'] <= 0:
                         continue
                     # A note about maturity: Previous versions of Electrum
-                    # and Electron Cash were off by one. Maturity is
+                    # and Electron Novo were off by one. Maturity is
                     # calculated based off mempool height (chain tip height + 1).
                     # See bitcoind consensus/tx_verify.cpp Consensus::CheckTxInputs
                     # and also txmempool.cpp  CTxMemPool::removeForReorg.
@@ -2268,7 +2268,7 @@ class Abstract_Wallet(PrintError, SPVDelegate):
         address = txin['address']
         if self.is_mine(address):
             txin['type'] = self.get_txin_type(address)
-            # Bitcoin Cash needs value to sign
+            # Novo needs value to sign
             received, spent = self.get_addr_io(address)
             item = received.get(txin['prevout_hash']+':%d'%txin['prevout_n'])
             tx_height, value, is_cb = item

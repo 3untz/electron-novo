@@ -1,4 +1,4 @@
-# Electron Cash - lightweight Bitcoin Cash client
+# Electron Novo - lightweight Novo client
 # Copyright (C) 2011 thomasv@gitorious
 # Copyright (C) 2017 Neil Booth
 #
@@ -57,7 +57,7 @@ class MainNet(AbstractNet):
     DEFAULT_SERVERS = _read_json_dict('servers.json')  # DO NOT MODIFY IN CLIENT CODE
     TITLE = 'Electron Novo'
 
-    # Bitcoin Cash fork block specification
+    # Novo fork block specification
     BITCOIN_CASH_FORK_BLOCK_HEIGHT = 478559
     BITCOIN_CASH_FORK_BLOCK_HASH = "000000000000000000651ef99cb9fcbe0dadde1d424bd9f15ff20136191a5eec"
 
@@ -102,14 +102,14 @@ class TestNet(AbstractNet):
     GENESIS = "000000000933ea01ad0ee984209779baaec3ced90fa3f408719526f8d77f4943"
     DEFAULT_PORTS = {'t':'51001', 's':'51002'}
     DEFAULT_SERVERS = _read_json_dict('servers_testnet.json')  # DO NOT MODIFY IN CLIENT CODE
-    TITLE = 'Electron Cash Testnet'
+    TITLE = 'Electron Novo Testnet'
     BASE_UNITS = {'tBCH': 8, 'mtBCH': 5, 'tbits': 2}
     DEFAULT_UNIT = "tBCH"
 
     # Nov 13. 2017 HF to CW144 DAA height (height of last block mined on old DAA)
     CW144_HEIGHT = 1188697
 
-    # Bitcoin Cash fork block specification
+    # Novo fork block specification
     BITCOIN_CASH_FORK_BLOCK_HEIGHT = 1155876
     BITCOIN_CASH_FORK_BLOCK_HASH = "00000000000e38fef93ed9582a7df43815d5c2ba9fd37ef70c9a0ea4a285b8f5"
 
@@ -131,7 +131,7 @@ class TestNet(AbstractNet):
 
 class TestNet4(TestNet):
     GENESIS = "000000001dd410c49a788668ce26751718cc797474d3152a5fc073dd44fd9f7b"
-    TITLE = 'Electron Cash Testnet4'
+    TITLE = 'Electron Novo Testnet4'
 
     HEADERS_URL = "http://bitcoincash.com/files/testnet4_headers"  # Unused
 
@@ -152,7 +152,7 @@ class TestNet4(TestNet):
 
 class ScaleNet(TestNet):
     GENESIS = "00000000e6453dc2dfe1ffa19023f86002eb11dbb8e87d0291a4599f0430be52"
-    TITLE = 'Electron Cash Scalenet'
+    TITLE = 'Electron Novo Scalenet'
     BASE_UNITS = {'sBCH': 8, 'msBCH': 5, 'sbits': 2}
     DEFAULT_UNIT = "tBCH"
 

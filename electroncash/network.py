@@ -1,6 +1,6 @@
 # Electrum - Lightweight Bitcoin Client
 # Copyright (c) 2011-2016 Thomas Voegtlin
-# Copyright (C) 2017-2020 The Electron Cash Developers
+# Copyright (C) 2017-2020 The Electron Novo Developers
 #
 # Permission is hereby granted, free of charge, to any person
 # obtaining a copy of this software and associated documentation files
@@ -371,7 +371,7 @@ class Network(util.DaemonThread):
             # Translate the blockchain_updated and wallet_updated events
             # into the legacy 'updated' event for old external plugins that
             # still rely on this event existing. There are some external
-            # electron cash plugins that still use this event, and we need
+            # Electron Novo plugins that still use this event, and we need
             # to keep this hack here so they don't break on new EC
             # versions.  "Technical debt" :)
             self.trigger_callback('updated')  # we will re-enter this function with event == 'updated' (triggering the warning in the elif clause below)
@@ -1393,7 +1393,7 @@ class Network(util.DaemonThread):
                 # checkpoint height. It isn't requested in this context, and it
                 # isn't requested anywhere else. If this happens it is an error.
                 # Additionally, if the checkpoint height header was requested
-                # and it does not connect, then there's not much Electron Cash
+                # and it does not connect, then there's not much Electron Novo
                 # can do about it (that we're going to bother). We depend on the
                 # checkpoint being relevant for the blockchain the user is
                 # running against.

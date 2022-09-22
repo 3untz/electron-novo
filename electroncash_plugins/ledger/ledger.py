@@ -28,7 +28,7 @@ try:
 except ImportError:
     BTCHIP = False
 
-MSG_NEEDS_FW_UPDATE_CASHADDR = _('Firmware version (or "Bitcoin Cash" app) too old for CashAddr support. ') + \
+MSG_NEEDS_FW_UPDATE_CASHADDR = _('Firmware version (or "Novo" app) too old for CashAddr support. ') + \
                                _('Please update at https://www.ledgerwallet.com')
 MSG_NEEDS_SW_UPDATE_CASHADDR = _('python-btchip is too old for CashAddr support. ') + \
                                _('Please update to v0.1.27 or greater')
@@ -201,7 +201,7 @@ class Ledger_Client:
         except BTChipException as e:
             if (e.sw == 0x6faa):
                 raise Exception(_("{hw_device_name} is temporarily locked - please unplug and plug it in again."
-                                  "\n\nIf this problem persists please exit and restart the Bitcoin Cash "
+                                  "\n\nIf this problem persists please exit and restart the Novo "
                                   "application running on the device.\n\nYou may also need to re-open this "
                                   "wallet window as well.").format(hw_device_name=self.device)) from e
             if ((e.sw & 0xFFF0) == 0x63c0):
@@ -218,7 +218,7 @@ class Ledger_Client:
                 self.perform_hw1_preflight()
             except BTChipException as e:
                 if (e.sw == 0x6d00 or e.sw == 0x6700):
-                    raise BaseException(_('{} not in Bitcoin Cash mode').format(self.device)) from e
+                    raise BaseException(_('{} not in Novo mode').format(self.device)) from e
                 raise e
             self.preflightDone = True
 

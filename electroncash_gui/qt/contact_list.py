@@ -131,7 +131,7 @@ class ContactList(PrintError, MyTreeWidget):
             num = self.parent.contacts.import_file(filename)
             self.parent.show_message(_("{} contacts successfully imported.").format(num))
         except Exception as e:
-            self.parent.show_error(_("Electron Cash was unable to import your contacts.") + "\n" + repr(e))
+            self.parent.show_error(_("Electron Novo was unable to import your contacts.") + "\n" + repr(e))
         self.on_update()
 
     def export_contacts(self):
@@ -144,7 +144,7 @@ class ContactList(PrintError, MyTreeWidget):
                 num = self.parent.contacts.export_file(fileName)
                 self.parent.show_message(_("{} contacts exported to '{}'").format(num, fileName))
         except Exception as e:
-            self.parent.show_error(_("Electron Cash was unable to export your contacts.") + "\n" + repr(e))
+            self.parent.show_error(_("Electron Novo was unable to export your contacts.") + "\n" + repr(e))
 
     def find_item(self, key: Contact) -> QTreeWidgetItem:
         ''' Rather than store the item reference in a lambda, we store its key.
@@ -571,7 +571,7 @@ class ContactList(PrintError, MyTreeWidget):
 
         items = lnsqt.lookup_lns_dialog(
             self.parent, self.wallet, title=_("New LNS Contact"),
-            blurb = _("<br>LNS is the Bitcoin Cash Name Service which runs on smartBCH chain"
+            blurb = _("<br>LNS is the Novo Name Service which runs on smartBCH chain"
                 "<br><br>Add anyone's LNS address to your Contacts"),
             button_type=lnsqt.InfoGroupBox.ButtonType.Radio
         )

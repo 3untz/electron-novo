@@ -1,7 +1,7 @@
 ##!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-# Electron Cash - A Bitcoin Cash SPV Wallet
+# Electron Novo - A Novo SPV Wallet
 # This file Copyright (c) 2019 Calin Culianu <calin.culianu@gmail.com>
 # This file Copyright (c) 2022 mainnet_pat
 #
@@ -48,7 +48,7 @@ except ImportError:
     Web3 = type(None)
     Contract = type(None)
 
-# 'lns:' URI scheme. Not used yet. Used by Crescent Cash and Electron Cash and
+# 'lns:' URI scheme. Not used yet. Used by Crescent Cash and Electron Novo and
 # other wallets in the future.
 URI_SCHEME = 'lns'
 

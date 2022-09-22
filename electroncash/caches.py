@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 #
-# Electron Cash - A Bitcoin Cash SPV Wallet
+# Electron Novo - A Novo SPV Wallet
 #
 # This file Copyright (C) 2019 Calin Culianu <calin.culianu@gmail.com>
 # License: MIT License

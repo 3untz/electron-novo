@@ -231,14 +231,14 @@ class SignDecryptVC(SignDecryptBase):
             print ("address = ", address)
             addr = Address.from_string(address)
         except:
-            parent().show_error(_('Invalid Bitcoin Cash address.'))
+            parent().show_error(_('Invalid Novo address.'))
             return
         if addr.kind != addr.ADDR_P2PKH:
             msg_sign = _("Signing with an address actually means signing with the corresponding "
                         "private key, and verifying with the corresponding public key. The "
                         "address you have entered does not have a unique public key, so these "
                         "operations cannot be performed.") + '\n\n' + \
-                       _('The operation is undefined. Not just in Electron Cash, but in general.')
+                       _('The operation is undefined. Not just in Electron Novo, but in general.')
             parent().show_message(_('Cannot sign messages with this type of address.') + '\n\n' + msg_sign)
             return
         if not parent().wallet:
@@ -275,7 +275,7 @@ class SignDecryptVC(SignDecryptBase):
         try:
             address = Address.from_string(address_str)
         except:
-            parent().show_error(_('Invalid Bitcoin Cash address.'))
+            parent().show_error(_('Invalid Novo address.'))
             return
         message = message.encode('utf-8')
         try:

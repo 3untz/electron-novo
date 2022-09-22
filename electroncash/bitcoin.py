@@ -50,7 +50,7 @@ except AssertionError:
     pass
 else:
     import sys
-    sys.exit('Electron Cash uses "assert" statements for its normal control flow.\n'
+    sys.exit('Electron Novo uses "assert" statements for its normal control flow.\n'
              'Please run this application without the python "-O" (optimize) flag.')
 # /End -O check
 
@@ -77,7 +77,7 @@ except:
     AES = None
 
 
-# Derived from Bitcoin Cash Node src/script/script.h
+# Derived from Novo Node src/script/script.h
 class OpCodes(IntEnum):
     # push value
     OP_0 = 0x00

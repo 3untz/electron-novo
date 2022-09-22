@@ -575,7 +575,7 @@ class SatochipPlugin(HW_PluginBase):
                 v_applet= d["protocol_version"]
                 self.print_error(f"[SatochipPlugin] setup_device(): Satochip version={hex(v_applet)} Electrum supported version= {hex(v_supported)}")#debugSatochip
                 if (v_supported<v_applet):
-                    msg=(_('The version of your Satochip is higher than supported by Electron Cash. You should update Electron Cash to ensure correct functioning!')+ '\n'
+                    msg=(_('The version of your Satochip is higher than supported by Electron Novo. You should update Electron Novo to ensure correct functioning!')+ '\n'
                                 + f'    Satochip version: {d["protocol_major_version"]}.{d["protocol_minor_version"]}' + '\n'
                                 + f'    Supported version: {SATOCHIP_PROTOCOL_MAJOR_VERSION}.{SATOCHIP_PROTOCOL_MINOR_VERSION}')
                     client.handler.show_error(msg)

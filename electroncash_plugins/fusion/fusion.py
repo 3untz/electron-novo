@@ -1,6 +1,6 @@
 #!/usr/bin/#!/usr/bin/env python3
 #
-# Electron Cash - a lightweight Bitcoin Cash client
+# Electron Novo - a lightweight Novo client
 # CashFusion - an advanced coin anonymizer
 #
 # Copyright (C) 2020 Mark B. Lundeberg

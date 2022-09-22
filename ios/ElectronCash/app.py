@@ -41,7 +41,7 @@ def main():
 
     _printStats(config_options)  # Prints some startup/debug stats such as Python version and SSL version (this is done in another thread to hopefully not impact startup overhead too much, as importing ssl may be a bit heavy)
 
-    return "Bitcoin Cash FTW!"
+    return "Novo FTW!"
 
 def _printStats(config_options):
     import threading
@@ -49,7 +49,7 @@ def _printStats(config_options):
         # lazy init of SSL
         import ssl, sys
         from electroncash import version, ecc_fast, schnorr
-        NSLog("Electron Cash lib version: %s (using server protocol: %s)", version.PACKAGE_VERSION, version.PROTOCOL_VERSION)
+        NSLog("Electron Novo lib version: %s (using server protocol: %s)", version.PACKAGE_VERSION, version.PROTOCOL_VERSION)
         NSLog("Python version: %s", ' '.join(sys.version.split('\n')))
         NSLog("OpenSSL version: %s", ssl.OPENSSL_VERSION)
         NSLog("Fast ECC: %s  Fast Schnorr: %s", str(ecc_fast.is_using_fast_ecc()), str(schnorr.has_fast_sign()))

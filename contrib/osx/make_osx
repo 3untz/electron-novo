@@ -263,7 +263,7 @@ plutil -insert 'CFBundleURLTypes' \
 	|| fail "Could not add keys to Info.plist. Make sure the program 'plutil' exists and is installed."
 
 plutil -insert 'NSCameraUsageDescription' \
-       -string 'Electron Cash would like to access the camera to scan for QR codes' \
+       -string 'Electron Novo would like to access the camera to scan for QR codes' \
 	-- dist/$PACKAGE.app/Contents/Info.plist \
 	|| fail "Could not add keys to Info.plist. Make sure the program 'plutil' exists and is installed."
 

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 #
-# Electron Cash - lightweight Bitcoin client
-# Copyright (C) 2018 Electron Cash developers
+# Electron Novo - lightweight Bitcoin client
+# Copyright (C) 2018 Electron Novo developers
 #
 # Permission is hereby granted, free of charge, to any person
 # obtaining a copy of this software and associated documentation files
@@ -24,7 +24,7 @@
 # SOFTWARE.
 
 """
-This script automates all the work involved in packaging an external Electron Cash plugin.
+This script automates all the work involved in packaging an external Electron Novo plugin.
 
 Future work:
 * Make this work on the command-line.
@@ -65,7 +65,7 @@ def write_plugin_archive(metadata, source_package_path, archive_file_path):
         # Copy the selected Python package into place.
         dest_package_path = os.path.join(temp_path, package_directory_name)
         shutil.copytree(source_package_path,  dest_package_path)
-        # Python bytecode cannot be written into the zip archive as Electron Cash runs it.
+        # Python bytecode cannot be written into the zip archive as Electron Novo runs it.
         # So we precompile it before creating the archived form.
         compileall.compile_dir(dest_package_path)
         shutil.make_archive(suffixless_path, 'zip', temp_path)
@@ -119,7 +119,7 @@ class App(QWidget):
 
         self.directory_path = None
 
-        self.setWindowTitle('Electron Cash Plugin Packager')
+        self.setWindowTitle('Electron Novo Plugin Packager')
         self.setMinimumWidth(500)
         self.setMaximumWidth(500)
 
@@ -155,8 +155,8 @@ class App(QWidget):
         self.minimumElectronCashVersionEdit = QLineEdit()
         self.minimumElectronCashVersionEdit.setPlaceholderText("3.2")
         self.minimumElectronCashVersionEdit.setMaximumWidth(50)
-        self.minimumElectronCashVersionEdit.setToolTip("This is the lowest version of Electron Cash which this plugin can be installed with.")
-        groupLayout.addRow('Minimum Electron Cash Version', self.minimumElectronCashVersionEdit)
+        self.minimumElectronCashVersionEdit.setToolTip("This is the lowest version of Electron Novo which this plugin can be installed with.")
+        groupLayout.addRow('Minimum Electron Novo Version', self.minimumElectronCashVersionEdit)
 
         availableVLayout = QVBoxLayout()
         self.qtAvailableCheckBox = QCheckBox("Supports the Qt user interface")

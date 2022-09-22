@@ -3,8 +3,8 @@
 # Electrum - lightweight Bitcoin client
 # Copyright (C) 2014 Thomas Voegtlin
 #
-# Electron Cash - lightweight Bitcoin Cash client
-# Copyright (C) 2020 The Electron Cash Developers
+# Electron Novo - lightweight Novo client
+# Copyright (C) 2020 The Electron Novo Developers
 #
 # Permission is hereby granted, free of charge, to any person
 # obtaining a copy of this software and associated documentation files
@@ -151,7 +151,7 @@ seed_type_names_inv = {
 def autodetect_seed_type(seed: str, lang: Optional[str] = None, *,
                          prefix: str = version.SEED_PREFIX) -> Set[SeedType]:
     ''' Given a mnemonic seed phrase, auto-detect the possible seed types it can
-    be. Note that some lucky seed phrases match all three types. Electron Cash
+    be. Note that some lucky seed phrases match all three types. Electron Novo
     will never generate a seed that matches more than one type, but it is
     possible for imported seeds to be ambiguous. May return the empty set if the
     seed phrase is invalid and/or fails checksum checks for all three types. '''
@@ -398,7 +398,7 @@ class Mnemonic(MnemonicBase):
 
 class Mnemonic_Electrum(MnemonicBase):
     """ This implements the "Electrum" mnemonic seed phrase format, which was
-    used for many years, but starting in 2020, Electron Cash switched back to
+    used for many years, but starting in 2020, Electron Novo switched back to
     BIP39 since it has wider support.
 
     The Electrum seed phrase format uses a hash based checksum of the normalized

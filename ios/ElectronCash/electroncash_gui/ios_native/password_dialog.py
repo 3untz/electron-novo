@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 #
-# Electron Cash - lightweight Bitcoin Cash client
+# Electron Novo - lightweight Novo client
 # Copyright (C) 2012 thomasv@gitorious
 #
 # This file is:

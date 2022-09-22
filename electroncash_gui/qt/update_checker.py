@@ -3,8 +3,8 @@
 # Electrum - lightweight Bitcoin client
 # Copyright (C) 2015 Thomas Voegtlin
 #
-# Electron Cash - lightweight Bitcoin Cash Client
-# Copyright (C) 2019 The Electron Cash Developers
+# Electron Novo - lightweight Novo Client
+# Copyright (C) 2019 The Electron Novo Developers
 #
 # Permission is hereby granted, free of charge, to any person
 # obtaining a copy of this software and associated documentation files
@@ -74,7 +74,7 @@ class UpdateChecker(QWidget, PrintError):
 
     def __init__(self, parent=None):
         super().__init__(parent)
-        self.setWindowTitle('Electron Cash - ' + _('Update Checker'))
+        self.setWindowTitle('Electron Novo - ' + _('Update Checker'))
         self.content = QVBoxLayout()
         self.content.setContentsMargins(*([10]*4))
 
@@ -224,7 +224,7 @@ class UpdateChecker(QWidget, PrintError):
                 self.cancel_or_check_button.setEnabled(False)
             else:
                 self.heading_label.setText('<h2>' + _("Already up to date") + '</h2>')
-                self.detail_label.setText(_("You are already on the latest version of Electron Cash."))
+                self.detail_label.setText(_("You are already on the latest version of Electron Novo."))
                 self.cancel_or_check_button.setEnabled(True)
         else:
             self.pb.show()
@@ -233,7 +233,7 @@ class UpdateChecker(QWidget, PrintError):
             self.cancel_or_check_button.setEnabled(True)
             self.latest_version_label.setText("")
             self.heading_label.setText('<h2>' + _("Checking for updates...") + '</h2>')
-            self.detail_label.setText(_("Please wait while Electron Cash checks for available updates."))
+            self.detail_label.setText(_("Please wait while Electron Novo checks for available updates."))
 
     def cancel_active(self):
         if self.active_req:

@@ -107,7 +107,7 @@ info "Preparing electrum-locale"
 )
 
 
-info "Installing Electron Cash and its dependencies"
+info "Installing Electron Novo and its dependencies"
 mkdir -p "$CACHEDIR/pip_cache"
 # Note: We must specify -g0 for CFLAGS to ensure no debug symbols (which can be non-deterministic due to tmp paths
 # encoded in the debug symbols).

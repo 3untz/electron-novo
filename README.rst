@@ -1,17 +1,17 @@
-Electron Cash - Lightweight Bitcoin Cash client
+Electron Novo - Lightweight Novo client
 =====================================
 
 ::
 
   Licence: MIT Licence
-  Author: Electron Cash Developers
+  Author: Electron Novo Developers
   Language: Python
   Homepage: https://electroncash.org/
 
 
 .. image:: https://d322cqt584bo4o.cloudfront.net/electron-cash/localized.svg
     :target: https://crowdin.com/project/electron-cash
-    :alt: Help translate Electron Cash online
+    :alt: Help translate Electron Novo online
 
 
 .. image:: https://img.shields.io/travis/Electron-Cash/Electron-Cash
@@ -28,39 +28,39 @@ Electron Cash - Lightweight Bitcoin Cash client
 Getting started
 ===============
 
-**Note: If running from source, Python 3.6 or above is required to run Electron Cash.** If your system lacks Python 3.6,
+**Note: If running from source, Python 3.6 or above is required to run Electron Novo.** If your system lacks Python 3.6,
 you have other options, such as the `AppImage / binary releases <https://github.com/Electron-Cash/Electron-Cash/releases/>`_
 or running from source using `pyenv` (see section `Running from source on old Linux`_ below).
 
 **macOS:** It is recommended that macOS users run `the binary .dmg <https://github.com/Electron-Cash/Electron-Cash/releases/>`_  as that's simpler to use and has everything included.  Otherwise, if you want to run from source, see section `Running from source on macOS`_ below.
 
-Electron Cash is a pure python application forked from Electrum. If you want to use the Qt interface, install the Qt dependencies::
+Electron Novo is a pure python application forked from Electrum. If you want to use the Qt interface, install the Qt dependencies::
 
     sudo apt-get install python3-pyqt5 python3-pyqt5.qtsvg
 
 If you downloaded the official package (tar.gz), you can run
-Electron Cash from its root directory (called Electron Cash), without installing it on your
+Electron Novo from its root directory (called Electron Novo), without installing it on your
 system; all the python dependencies are included in the 'packages'
-directory. To run Electron Cash from its root directory, just do::
+directory. To run Electron Novo from its root directory, just do::
 
     ./electron-cash
 
-You can also install Electron Cash on your system, by running this command::
+You can also install Electron Novo on your system, by running this command::
 
     sudo apt-get install python3-setuptools
     python3 setup.py install
 
 This will download and install the Python dependencies used by
-Electron Cash, instead of using the 'packages' directory.
+Electron Novo, instead of using the 'packages' directory.
 
 If you cloned the git repository, you need to compile extra files
-before you can run Electron Cash. Read the next section, "Development
+before you can run Electron Novo. Read the next section, "Development
 Version".
 
 Hardware Wallet - Ledger Nano S
 -------------------------------
 
-Electron Cash natively support Ledger Nano S hardware wallet. If you plan to use
+Electron Novo natively support Ledger Nano S hardware wallet. If you plan to use
 you need an additional dependency, namely btchip. To install it run this command::
 
     sudo pip3 install btchip-python
@@ -120,7 +120,7 @@ Cash to run completely independently of your system configuration.
    loaded.
 2. Run ``pyenv install 3.6.9``. This will download and compile that version of
    python, storing it under ``.pyenv`` in your home directory.
-3. ``cd`` into the Electron Cash directory. Run ``pyenv local 3.6.9`` which inserts
+3. ``cd`` into the Electron Novo directory. Run ``pyenv local 3.6.9`` which inserts
    a file ``.python-version`` into the current directory.
 4. While still in this directory, run ``pip install pyqt5``.
 5. If you are installing from the source file (.tar.gz or .zip) then you are
@@ -135,7 +135,7 @@ You need to install **either** `MacPorts <https://www.macports.org>`_  **or** `H
 1. After installing either HomeBrew or MacPorts, clone this repository and switch to the directory: ``git clone https://github.com/Electron-Cash/Electron-Cash && cd Electron-Cash``
 2. Install python 3.6 or 3.7. For brew: ``brew install python3`` or if using MacPorts: ``sudo port install python36``
 3. Install PyQt5: ``python3 -m pip install --user pyqt5``
-4. Install Electron Cash requirements: ``python3 -m pip install --user -r contrib/requirements/requirements.txt``
+4. Install Electron Novo requirements: ``python3 -m pip install --user -r contrib/requirements/requirements.txt``
 5. Compile libsecp256k1 (optional, yet highly recommended): ``./contrib/make_secp``.
    This requires GNU tools and automake, install with brew: ``brew install coreutils automake`` or if using MacPorts: ``sudo port install coreutils automake``
 6. At this point you should be able to just run the sources: ``./electron-cash``

@@ -32,7 +32,7 @@ from . import dnssec, cashacct
 from .util import print_error
 
 class Contacts(dict):
-    ''' Old contacts class, pre Electron Cash 4.0.8.
+    ''' Old contacts class, pre Electron Novo 4.0.8.
 
     This has been left here in case it is needed to keep old code working
     or as a reference to how older wallets saved the contacts to the wallet

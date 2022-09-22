@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 #
-# Cash Shuffle - CoinJoin for Bitcoin Cash
-# Copyright (C) 2018-2020 Electron Cash LLC
+# Cash Shuffle - CoinJoin for Novo
+# Copyright (C) 2018-2020 Electron Novo LLC
 #
 # Permission is hereby granted, free of charge, to any person
 # obtaining a copy of this software and associated documentation files
@@ -36,7 +36,7 @@ from electroncash_gui.qt.util import ColorScheme
 
 class ShuffleStatusBarButtonMgr:
     ''' Apologies for how contorted this is.  All this code used to live inside
-    the ElectrumWindow instance in Electron Cash 4.0.x, before CashFusion.
+    the ElectrumWindow instance in Electron Novo 4.0.x, before CashFusion.
     We moved it out into a separate "manager" class, for managing the
     StatusBarButton state. '''
 

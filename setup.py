@@ -25,7 +25,7 @@ with open('contrib/requirements/requirements-web3.txt') as f:
 version = imp.load_source('version', 'electroncash/version.py')
 
 if sys.version_info[:3] < (3, 6):
-    sys.exit("Error: Electron Cash requires Python version >= 3.6...")
+    sys.exit("Error: Electron Novo requires Python version >= 3.6...")
 
 data_files = []
 
@@ -144,7 +144,7 @@ setup(
     cmdclass={
         'sdist': MakeAllBeforeSdist,
     },
-    name=os.environ.get('EC_PACKAGE_NAME') or "Electron Cash",
+    name=os.environ.get('EC_PACKAGE_NAME') or "Electron Novo",
     version=os.environ.get('EC_PACKAGE_VERSION') or version.PACKAGE_VERSION,
     install_requires=requirements,
     extras_require={
@@ -207,10 +207,10 @@ setup(
     },
     scripts=['electron-cash'],
     data_files=data_files,
-    description="Lightweight Bitcoin Cash Wallet",
-    author="The Electron Cash Developers",
+    description="Lightweight Novo Wallet",
+    author="The Electron Novo Developers",
     author_email="jonf@electroncash.org",
     license="MIT Licence",
     url="http://electroncash.org",
-    long_description="""Lightweight Bitcoin Cash Wallet"""
+    long_description="""Lightweight Novo Wallet"""
 )
