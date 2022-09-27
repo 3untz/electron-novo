@@ -84,8 +84,6 @@ a = Analysis([home+'electron-cash',
               home+'electroncash_plugins/keepkey/qt.py',
               home+'electroncash_plugins/ledger/qt.py',
               home+'electroncash_plugins/satochip/qt.py',  # Satochip
-              home+'electroncash_plugins/fusion/fusion.py', # CashFusion
-              home+'electroncash_plugins/fusion/qt.py', # CashFusion
               ],
              binaries=binaries,
              datas=datas,
