@@ -83,22 +83,6 @@ class Exception_Window(QWidget):
         l.setWordWrap(True)
         l.setOpenExternalLinks(True)
         main_box.addWidget(l)
-"""
-        l = QLabel(_('To help us diagnose and fix the problem, you can send us'
-                     ' a bug report that contains useful debug information:'))
-        l.setWordWrap(True)
-        main_box.addWidget(l)
-
-        label = QLabel(
-            '<br/>' + _("Please briefly describe what led to the error (optional):")
-            + '<br/><br/>' + '<i>' +
-            _("Feel free to add your email address if you are willing to provide"
-              " further detail, but note that it will appear in the relevant"
-              " github issue.") + '</i>')
-        label.setWordWrap(True)
-        label.setTextFormat(QtCore.Qt.RichText)
-        main_box.addWidget(label)
-"""
 
         self.description_textfield = QTextEdit()
         self.description_textfield.setAcceptRichText(False)  # Force plain 'ol text descriptions.. no rich-text pastes
