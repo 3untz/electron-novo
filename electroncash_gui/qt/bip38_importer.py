@@ -1,5 +1,5 @@
 # -*- mode: python3 -*-
-# Electron Novo - (C) 2019 The Electron Novo Developers and Electron Novo LLC
+# Electron Novo - (C) 2019 The Electron Cash Developers and Electron Cash LLC
 #
 import threading
 
