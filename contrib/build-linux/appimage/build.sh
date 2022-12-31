@@ -46,7 +46,7 @@ if [ -z ${SUDO+x} ] ; then
     fi
 fi
 
-DOCKER_SUFFIX=ub1804
+DOCKER_SUFFIX=ub2004
 
 info "Creating docker image ..."
 $SUDO docker build -t electronnovo-appimage-builder-img-$DOCKER_SUFFIX \
