@@ -4,6 +4,8 @@ ARG UBUNTU_MIRROR=http://archive.ubuntu.com/ubuntu/
 
 ENV LC_ALL=C.UTF-8 LANG=C.UTF-8
 
+ENV DEBIAN_FRONTEND=noninteractive
+
 RUN echo deb ${UBUNTU_MIRROR} focal main restricted universe multiverse > /etc/apt/sources.list && \
     echo deb ${UBUNTU_MIRROR} focal-updates main restricted universe multiverse >> /etc/apt/sources.list && \
     echo deb ${UBUNTU_MIRROR} focal-backports main restricted universe multiverse >> /etc/apt/sources.list && \
