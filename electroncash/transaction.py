@@ -798,9 +798,32 @@ class Transaction:
         nLocktime = int_to_hex(self.locktime, 4)
         inputs = self.inputs()
         outputs = self.outputs()
+        hashinputs = self.get_hashinputs()
+        hashoutputs = self.get_hashoutputs()
         txins = var_int(len(inputs)) + ''.join(self.serialize_input(txin, self.input_script(txin, estimate_size, self._sign_schnorr), estimate_size) for txin in inputs)
         txouts = var_int(len(outputs)) + ''.join(self.serialize_output(o) for o in outputs)
+        if self.version == 2:
+            return nVersion + int_to_hex(len(inputs), 4) + hashinputs + int_to_hex(len(outputs), 4) + hashoutputs + nLocktime
         return nVersion + txins + txouts + nLocktime
+
+    def get_hashinputs(self):
+        inputlist = ''
+        for txin in self.inputs():
+            inputhash = ''.join((self.serialize_outpoint(txin),
+            bh2u(sha256(bfh(self.input_script(txin)))),
+            int_to_hex(txin.get('sequence', 0xffffffff - 1), 4)))
+            inputlist += bh2u(sha256(bfh(inputhash)))
+        return bh2u(sha256(bfh(inputlist)))
+    
+    def get_hashoutputs(self):
+        outputlist = ''
+        for txout in self.outputs():
+            output_type, addr, amount = txout
+            script = self.pay_script(addr)
+            outputhash = ''.join((int_to_hex(amount, 8),
+            bh2u(sha256(bfh(script)))))
+            outputlist += bh2u(sha256(bfh(outputhash)))
+        return bh2u(sha256(bfh(outputlist)))
 
     def hash(self):
         warnings.warn("warning: deprecated tx.hash()", FutureWarning, stacklevel=2)
@@ -821,7 +844,8 @@ class Transaction:
         (The is_complete check is also not performed here because that
         potentially can lead to unwanted tx deserialization). '''
         if self.raw:
-            return self._txid(self.raw)
+            if self.version != 2:
+                return self._txid(self.raw)
         return self.txid()
 
     @staticmethod
