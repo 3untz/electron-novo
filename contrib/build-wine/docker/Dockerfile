@@ -1,10 +1,10 @@
-FROM ubuntu:18.04@sha256:2aeed98f2fa91c365730dc5d70d18e95e8d53ad4f1bbf4269c3bb625060383f0
+FROM ubuntu:20.04@sha256:8eb87f3d6c9f2feee114ff0eff93ea9dfd20b294df0a0353bd6a4abf403336fe
 
 ARG UBUNTU_MIRROR=http://archive.ubuntu.com/ubuntu/
 
 ENV LC_ALL=C.UTF-8 LANG=C.UTF-8
 
-ENV UBUNTUDIST=bionic
+ENV UBUNTUDIST=focal
 
 # This prevents questions during package installations
 ENV DEBIAN_FRONTEND=noninteractive
@@ -16,21 +16,21 @@ RUN echo deb ${UBUNTU_MIRROR} ${UBUNTUDIST} main restricted universe multiverse 
     dpkg --add-architecture i386 && \
     apt-get update -q && \
     apt-get install -qy \
-        gnupg2=2.2.4-1ubuntu1.6 \
-        ca-certificates=20211016~18.04.1 \
-        wget=1.19.4-1ubuntu2.2 \
-        git=1:2.17.1-1ubuntu0.13 \
-        p7zip-full=16.02+dfsg-6 \
-        make=4.1-9.1ubuntu1 \
+        gnupg2=2.2.19-3ubuntu2.2 \
+        ca-certificates=20211016ubuntu0.20.04.1 \
+        wget=1.20.3-1ubuntu2 \
+        git=1:2.25.1-1ubuntu3.6 \
+        p7zip-full=16.02+dfsg-7build1 \
+        make=4.2.1-1.2 \
         autotools-dev=20180224.1 \
-        autoconf=2.69-11 \
-        libtool=2.4.6-2 \
-        gettext=0.19.8.1-6ubuntu0.3 \
-        autopoint=0.19.8.1-6ubuntu0.3 \
-        mingw-w64=5.0.3-1 \
-        mingw-w64-tools=5.0.3-1 \
-        win-iconv-mingw-w64-dev=0.0.8-2 \
-        python3-software-properties=0.96.24.32.14
+        autoconf=2.69-11.1 \
+        libtool=2.4.6-14 \
+        gettext=0.19.8.1-10build1 \
+        autopoint=0.19.8.1-10build1 \
+        mingw-w64=7.0.0-2 \
+        mingw-w64-tools=7.0.0-2 \
+        win-iconv-mingw-w64-dev=0.0.8-3 \
+        python3-software-properties=0.99.9.8
 
 # Official WineHQ signing key
 # See https://wiki.winehq.org/Ubuntu
@@ -50,11 +50,11 @@ RUN echo "78b185fabdb323971d13bd329fefc8038e08559aa51c4996de18db0639a51df6 /tmp/
         wine-${WINEDIST}:amd64=${WINEVERSION} \
         winehq-${WINEDIST}:amd64=${WINEVERSION} \
         # cabextract is needed for winetricks to install the .NET framework
-        cabextract=1.6-1.1 \
+        cabextract=1.9-3 \
         # xvfb is needed to launch the Visual Studio installer
-        xvfb=2:1.19.6-1ubuntu4.11 \
+        xvfb=2:1.20.13-1ubuntu1~20.04.5 \
         # winbind is needed for the Visual Studio installer and cl.exe PDB generation
-        winbind=2:4.7.6+dfsg~ubuntu-0ubuntu2.28
+        winbind=2:4.13.17~dfsg-0ubuntu1.20.04.2
 
 RUN rm -rf /var/lib/apt/lists/* && \
     apt-get autoremove -y && \
