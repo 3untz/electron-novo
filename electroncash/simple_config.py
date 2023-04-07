@@ -38,7 +38,7 @@ class SimpleConfig(PrintError):
         2. User configuration (in the user's config directory)
     They are taken in order (1. overrides config options set in 2.)
     """
-    fee_rates = [250000, 260000, 270000, 280000, 290000, 300000]
+    fee_rates = [250000, 251000, 252000, 253000]
 
     def __init__(self, options=None, read_user_config_function=None,
                  read_user_dir_function=None):
