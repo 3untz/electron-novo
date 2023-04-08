@@ -29,8 +29,7 @@ RUN echo deb ${UBUNTU_MIRROR} ${UBUNTUDIST} main restricted universe multiverse 
         autopoint \
         mingw-w64 \
         mingw-w64-tools \
-        win-iconv-mingw-w64-dev \
-        python3-software-properties
+        win-iconv-mingw-w64-dev
 
 # Official WineHQ signing key
 # See https://wiki.winehq.org/Ubuntu
@@ -39,17 +38,22 @@ COPY winehq.key /tmp
 
 ENV WINEDIST=devel
 ENV WINEVERSION=7.7~${UBUNTUDIST}-1
-###################################################
 
-# Modified wine installation code to prevent compiling problems
-
-RUN mkdir -pm755 /etc/apt/keyrings && \
-    wget https://dl.winehq.org/wine-builds/winehq.key -O "/etc/apt/keyrings/winehq-archive.key" && \
-    wget -NP /etc/apt/sources.list.d/ https://dl.winehq.org/wine-builds/ubuntu/dists/jammy/winehq-jammy.sources && \
-    apt-get update  && apt-get install -y winehq-devel winbind xvfb cabextract
-
-###################################################
-
+RUN echo "78b185fabdb323971d13bd329fefc8038e08559aa51c4996de18db0639a51df6 /tmp/winehq.key" | sha256sum -c - && \
+    apt-key add /tmp/winehq.key && \
+    echo deb https://dl.winehq.org/wine-builds/ubuntu/ ${UBUNTUDIST} main >> /etc/apt/sources.list && \
+    apt-get update -q && \
+    apt-get install -qy \
+        wine-${WINEDIST}-amd64:amd64=${WINEVERSION} \
+        wine-${WINEDIST}-i386:i386=${WINEVERSION} \
+        wine-${WINEDIST}:amd64=${WINEVERSION} \
+        winehq-${WINEDIST}:amd64=${WINEVERSION} \
+        # cabextract is needed for winetricks to install the .NET framework
+        cabextract \
+        # xvfb is needed to launch the Visual Studio installer
+        xvfb \
+        # winbind is needed for the Visual Studio installer and cl.exe PDB generation
+        winbind
 
 RUN rm -rf /var/lib/apt/lists/* && \
     apt-get autoremove -y && \
