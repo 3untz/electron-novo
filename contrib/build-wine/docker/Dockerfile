@@ -48,7 +48,7 @@ RUN mkdir -pm755 /etc/apt/keyrings && \
     wget -NP /etc/apt/sources.list.d/ https://dl.winehq.org/wine-builds/ubuntu/dists/jammy/winehq-jammy.sources && \
     apt-get update  && apt-get install -y winehq-devel winbind xvfb cabextract
 
-////////////
+###################################################
 
 
 RUN rm -rf /var/lib/apt/lists/* && \
