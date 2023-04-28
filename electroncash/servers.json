@@ -3,5 +3,47 @@
     "s": "50012",
     "t": "50010",
     "version": "1.4"
+    },
+   "electrumx1.novoblock.org": {
+    "pruning": "-",
+    "s": "50012",
+    "t": "50010",
+    "version": "1.4"
+    },
+	"electrumx2.novoblock.org": {
+    "pruning": "-",
+    "s": "50012",
+    "t": "50010",
+    "version": "1.4"
+    },
+	"electrumx3.novoblock.org": {
+    "pruning": "-",
+    "s": "50012",
+    "t": "50010",
+    "version": "1.4"
+    },
+	"electrumx4.novoblock.org": {
+    "pruning": "-",
+    "s": "50012",
+    "t": "50010",
+    "version": "1.4"
+    },
+	"electrumx5.novoblock.org": {
+    "pruning": "-",
+    "s": "50012",
+    "t": "50010",
+    "version": "1.4"
+    },
+	"novo-electrumx.radiant4people.com": {
+    "pruning": "-",
+    "s": "50012",
+    "t": "50010",
+    "version": "1.4"
+    },
+	"electrumx.novochain.ovh": {
+    "pruning": "-",
+    "s": "50012",
+    "t": "50010",
+    "version": "1.4"
     }
 }
