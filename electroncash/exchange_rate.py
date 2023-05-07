@@ -20,7 +20,7 @@ from .util import PrintError, ThreadJob, print_error, inv_base_units
 
 DEFAULT_ENABLED = True
 DEFAULT_CURRENCY = "USD"
-DEFAULT_EXCHANGE = "CoinGecko"  # Note the exchange here should ideally also support history rates
+DEFAULT_EXCHANGE = "Garlix"  # Note the exchange here should ideally also support history rates
 
 # See https://en.wikipedia.org/wiki/ISO_4217
 CCY_PRECISIONS = {'BHD': 3, 'BIF': 0, 'BYR': 0, 'CLF': 4, 'CLP': 0,
@@ -151,122 +151,21 @@ class ExchangeBase(PrintError):
         rates = self.get_rates('')
         return sorted([str(a) for (a, b) in rates.items() if b is not None and len(a)==3])
 
-
-class BitcoinAverage(ExchangeBase):
-
+class Garlix(ExchangeBase):
     def get_rates(self, ccy):
-        json = self.get_json('apiv2.bitcoinaverage.com', '/indices/global/ticker/short')
-        return dict([(r.replace("BCH", ""), PyDecimal(json[r]['last']))
-                     for r in json if r != 'timestamp'])
+        json = self.get_json('garlix.io', '/api/gecko/tickers')
+        rate = [x for x in json if x['ticker_id'] == 'NOVO_USDT'][0]
+        return {'USD': PyDecimal(rate['last_price']) * 10000}
 
-    # note: historical rates used to be freely available
-    # but this is no longer the case. see spesmilo#5188
-    # (Turned off until the unlikely event that the situation changes.)
-    #def history_ccys(self):
-    #    return ['AUD', 'BRL', 'CAD', 'CHF', 'CNY', 'EUR', 'GBP', 'IDR', 'ILS',
-    #            'MXN', 'NOK', 'NZD', 'PLN', 'RON', 'RUB', 'SEK', 'SGD', 'USD',
-    #            'ZAR']
-    #
-    #def request_history(self, ccy):
-    #    history = self.get_csv('apiv2.bitcoinaverage.com',
-    #                           "/indices/global/history/BCH%s?period=alltime&format=csv" % ccy)
-    #    return dict([(h['DateTime'][:10], h['Average'])
-    #                 for h in history])
-
-
-class BitPay(ExchangeBase):
-
+class Xeggex(ExchangeBase):
     def get_rates(self, ccy):
-        json = self.get_json('bitpay.com', '/rates/BCH')
-        return dict([(r['code'], PyDecimal(r['rate'])) for r in json['data']])
+        json = self.get_json('xeggex.com', '/api/v2/market/getbysymbol/NOVO_USDT')
+        return {'USD': PyDecimal(json['lastPrice']) * 10000}
 
-
-class Bitso(ExchangeBase):
-
+class Txbit(ExchangeBase):
     def get_rates(self, ccy):
-        json = self.get_json('api.bitso.com', '/v2/ticker/?book=bch_btc')
-        return {'BTC': PyDecimal(json['last'])}
-
-
-class BitStamp(ExchangeBase):
-
-    def get_rates(self, ccy):
-        json_usd = self.get_json('www.bitstamp.net', '/api/v2/ticker/bchusd')
-        json_eur = self.get_json('www.bitstamp.net', '/api/v2/ticker/bcheur')
-        json_btc = self.get_json('www.bitstamp.net', '/api/v2/ticker/bchbtc')
-        return {
-            'USD': PyDecimal(json_usd['last']),
-            'EUR': PyDecimal(json_eur['last']),
-            'BTC': PyDecimal(json_btc['last'])}
-
-class Coinbase(ExchangeBase):
-
-    def get_rates(self, ccy):
-        json = self.get_json('api.coinbase.com',
-                             '/v2/exchange-rates?currency=BCH')
-        return {ccy: PyDecimal(rate) for (ccy, rate) in json["data"]["rates"].items()}
-
-
-class Kraken(ExchangeBase):
-
-    def get_rates(self, ccy):
-        ccys = ['EUR', 'USD']
-        pairs = ['BCH%s' % c for c in ccys]
-        json = self.get_json('api.kraken.com',
-                             '/0/public/Ticker?pair=%s' % ','.join(pairs))
-        return dict((k[-3:], PyDecimal(float(v['c'][0])))
-                     for k, v in json['result'].items())
-
-
-class CoinCap(ExchangeBase):
-
-    def get_rates(self, ccy):
-        json = self.get_json('api.coincap.io', '/v2/rates/bitcoin-cash/')
-        return {'USD': PyDecimal(json['data']['rateUsd'])}
-
-    def history_ccys(self):
-        return ['USD']
-
-    def request_history(self, ccy):
-        from datetime import datetime as dt
-        # Currently 2000 days is the maximum in 1 API call which needs to be fixed
-        # sometime before the year 2023...
-        history = self.get_json('api.coincap.io',
-                               "/v2/assets/bitcoin-cash/history?interval=d1&limit=2000")
-        return dict([(dt.utcfromtimestamp(h['time']/1000).strftime('%Y-%m-%d'),
-                        h['priceUsd'])
-                     for h in history['data']])
-
-
-class CoinGecko(ExchangeBase):
-
-    def get_rates(self, ccy):
-        json = self.get_json('api.coingecko.com', '/api/v3/coins/bitcoin-cash?localization=False&sparkline=false')
-        prices = json["market_data"]["current_price"]
-        return dict([(a[0].upper(),PyDecimal(a[1])) for a in prices.items()])
-
-    def history_ccys(self):
-        return ['AED', 'ARS', 'AUD', 'BTD', 'BHD', 'BMD', 'BRL', 'BTC',
-                'CAD', 'CHF', 'CLP', 'CNY', 'CZK', 'DKK', 'ETH', 'EUR',
-                'GBP', 'HKD', 'HUF', 'IDR', 'ILS', 'INR', 'JPY', 'KRW',
-                'KWD', 'LKR', 'LTC', 'MMK', 'MXH', 'MYR', 'NOK', 'NZD',
-                'PHP', 'PKR', 'PLN', 'RUB', 'SAR', 'SEK', 'SGD', 'THB',
-                'TRY', 'TWD', 'USD', 'VEF', 'VND', 'XAG', 'XAU', 'XDR',
-                'ZAR']
-
-    def request_history(self, ccy):
-        history = self.get_json('api.coingecko.com', '/api/v3/coins/bitcoin-cash/market_chart?vs_currency=%s&days=max' % ccy)
-
-        from datetime import datetime as dt
-        return dict([(dt.utcfromtimestamp(h[0]/1000).strftime('%Y-%m-%d'), h[1])
-                     for h in history['prices']])
-
-class BitstampYadio(ExchangeBase):
-    def get_rates(self, ccy):
-        json_usd = self.get_json('www.bitstamp.net', '/api/v2/ticker/bchusd')
-        json_ars = self.get_json('api.yadio.io', '/exrates/ARS')
-        return {'ARS': PyDecimal(json_usd['last']) / PyDecimal(json_ars['ARS']['USD'])}
-
+        json = self.get_json('api.txbit.io', '/api/public/getticker?market=NOVO/USDT')
+        return {'USD': PyDecimal(json['result']['Last']) * 10000}
 
 def dictinvert(d):
     inv = {}
@@ -379,8 +278,7 @@ class FxThread(ThreadJob):
 
     @staticmethod
     def is_supported():
-        """Fiat currency is only supported on BCH MainNet, for all other chains it is not supported."""
-        return False
+        return True
 
     def is_enabled(self):
         return bool(self.is_supported() and self.config.get('use_exchange_rate', DEFAULT_ENABLED))
