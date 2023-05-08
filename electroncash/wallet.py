@@ -2007,7 +2007,7 @@ class Abstract_Wallet(PrintError, SPVDelegate):
         tx_in_bytes=tx.estimated_size()
         fee_in_satoshis=tx.get_fee()
         sats_per_byte=fee_in_satoshis/tx_in_bytes
-        if (sats_per_byte > 150):
+        if (sats_per_byte > 50e5):
             raise ExcessiveFee()
 
         # Sort the inputs and outputs deterministically
