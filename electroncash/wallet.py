@@ -1079,6 +1079,8 @@ class Abstract_Wallet(PrintError, SPVDelegate):
                         continue
                     if confirmed_only and x['height'] <= 0:
                         continue
+                    if x['value'] <= 0:
+                        continue
                     # A note about maturity: Previous versions of Electrum
                     # and Electron Novo were off by one. Maturity is
                     # calculated based off mempool height (chain tip height + 1).
