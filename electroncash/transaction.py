@@ -24,7 +24,6 @@
 # SOFTWARE.
 
 
-
 # Note: The deserialization code originally comes from ABE.
 
 from .util import print_error, profiler
@@ -50,8 +49,10 @@ NO_SIGNATURE = 'ff'
 class SerializationError(Exception):
     """ Thrown when there's a problem deserializing or serializing """
 
+
 class InputValueMissing(ValueError):
     """ thrown when the value of an input is needed but not present """
+
 
 class BCDataStream(object):
     def __init__(self):
@@ -91,7 +92,7 @@ class BCDataStream(object):
 
     def read_bytes(self, length):
         try:
-            result = self.input[self.read_cursor:self.read_cursor+length]
+            result = self.input[self.read_cursor:self.read_cursor + length]
             self.read_cursor += length
             return result
         except IndexError:
@@ -104,21 +105,47 @@ class BCDataStream(object):
             return False
         return self.read_cursor < len(self.input)
 
-    def read_boolean(self): return self.read_bytes(1)[0] != chr(0)
-    def read_int16(self): return self._read_num('<h')
-    def read_uint16(self): return self._read_num('<H')
-    def read_int32(self): return self._read_num('<i')
-    def read_uint32(self): return self._read_num('<I')
-    def read_int64(self): return self._read_num('<q')
-    def read_uint64(self): return self._read_num('<Q')
+    def read_boolean(self):
+        return self.read_bytes(1)[0] != chr(0)
 
-    def write_boolean(self, val): return self.write(chr(1) if val else chr(0))
-    def write_int16(self, val): return self._write_num('<h', val)
-    def write_uint16(self, val): return self._write_num('<H', val)
-    def write_int32(self, val): return self._write_num('<i', val)
-    def write_uint32(self, val): return self._write_num('<I', val)
-    def write_int64(self, val): return self._write_num('<q', val)
-    def write_uint64(self, val): return self._write_num('<Q', val)
+    def read_int16(self):
+        return self._read_num('<h')
+
+    def read_uint16(self):
+        return self._read_num('<H')
+
+    def read_int32(self):
+        return self._read_num('<i')
+
+    def read_uint32(self):
+        return self._read_num('<I')
+
+    def read_int64(self):
+        return self._read_num('<q')
+
+    def read_uint64(self):
+        return self._read_num('<Q')
+
+    def write_boolean(self, val):
+        return self.write(chr(1) if val else chr(0))
+
+    def write_int16(self, val):
+        return self._write_num('<h', val)
+
+    def write_uint16(self, val):
+        return self._write_num('<H', val)
+
+    def write_int32(self, val):
+        return self._write_num('<i', val)
+
+    def write_uint32(self, val):
+        return self._write_num('<I', val)
+
+    def write_int64(self, val):
+        return self._write_num('<q', val)
+
+    def write_uint64(self, val):
+        return self._write_num('<Q', val)
 
     def read_compact_size(self):
         try:
@@ -139,13 +166,13 @@ class BCDataStream(object):
             raise SerializationError("attempt to write size < 0")
         elif size < 253:
             self.write(bytes([size]))
-        elif size < 2**16:
+        elif size < 2 ** 16:
             self.write(b'\xfd')
             self._write_num('<H', size)
-        elif size < 2**32:
+        elif size < 2 ** 32:
             self.write(b'\xfe')
             self._write_num('<I', size)
-        elif size < 2**64:
+        elif size < 2 ** 64:
             self.write(b'\xff')
             self._write_num('<Q', size)
 
@@ -166,12 +193,13 @@ class BCDataStream(object):
 def long_hex(bytes):
     return bytes.encode('hex_codec')
 
+
 # This function comes from bitcointools, bct-LICENSE.txt.
 def short_hex(bytes):
     t = bytes.encode('hex_codec')
     if len(t) < 11:
         return t
-    return t[0:4]+"..."+t[-4:]
+    return t[0:4] + "..." + t[-4:]
 
 
 def match_decoded(decoded, to_match):
@@ -191,11 +219,13 @@ def match_decoded(decoded, to_match):
 def parse_sig(x_sig):
     return [None if x == NO_SIGNATURE else x for x in x_sig]
 
+
 def safe_parse_pubkey(x):
     try:
         return xpubkey_to_pubkey(x)
     except:
         return x
+
 
 def parse_scriptSig(d, _bytes):
     try:
@@ -205,7 +235,7 @@ def parse_scriptSig(d, _bytes):
         print_error("cannot find address in input script", bh2u(_bytes))
         return
 
-    match = [ opcodes.OP_PUSHDATA4 ]
+    match = [opcodes.OP_PUSHDATA4]
     if match_decoded(decoded, match):
         item = decoded[0][1]
         # payto_pubkey
@@ -219,7 +249,7 @@ def parse_scriptSig(d, _bytes):
     # non-generated TxIn transactions push a signature
     # (seventy-something bytes) and then their public key
     # (65 bytes) onto the stack:
-    match = [ opcodes.OP_PUSHDATA4, opcodes.OP_PUSHDATA4 ]
+    match = [opcodes.OP_PUSHDATA4, opcodes.OP_PUSHDATA4]
     if match_decoded(decoded, match):
         sig = bh2u(decoded[0][1])
         x_pubkey = bh2u(decoded[1][1])
@@ -238,7 +268,7 @@ def parse_scriptSig(d, _bytes):
         return
 
     # p2sh transaction, m of n
-    match = [ opcodes.OP_0 ] + [ opcodes.OP_PUSHDATA4 ] * (len(decoded) - 1)
+    match = [opcodes.OP_0] + [opcodes.OP_PUSHDATA4] * (len(decoded) - 1)
     if not match_decoded(decoded, match):
         print_error("cannot find address in input script", bh2u(_bytes))
         return
@@ -261,7 +291,7 @@ def parse_redeemScript(s):
     n = dec2[-2][0] - opcodes.OP_1 + 1
     op_m = opcodes.OP_1 + m - 1
     op_n = opcodes.OP_1 + n - 1
-    match_multisig = [ op_m ] + [opcodes.OP_PUSHDATA4]*n + [ op_n, opcodes.OP_CHECKMULTISIG ]
+    match_multisig = [op_m] + [opcodes.OP_PUSHDATA4] * n + [op_n, opcodes.OP_CHECKMULTISIG]
     if not match_decoded(dec2, match_multisig):
         # causes exception in caller when mismatched
         print_error("cannot find address in input script", bh2u(s))
@@ -271,6 +301,7 @@ def parse_redeemScript(s):
     redeemScript = Script.multisig_script(m, [bytes.fromhex(p)
                                               for p in pubkeys])
     return m, n, x_pubkeys, pubkeys, redeemScript
+
 
 def get_address_from_output_script(_bytes):
     scriptlen = len(_bytes)
@@ -283,7 +314,7 @@ def get_address_from_output_script(_bytes):
         # Pay-to-pubkey-hash
         return TYPE_ADDRESS, Address.from_P2PKH_hash(_bytes[3:23])
 
-    if scriptlen == 35 and _bytes[0] == 33 and _bytes[1] in (2,3) and _bytes[34] == opcodes.OP_CHECKSIG:
+    if scriptlen == 35 and _bytes[0] == 33 and _bytes[1] in (2, 3) and _bytes[34] == opcodes.OP_CHECKSIG:
         # Pay-to-pubkey (compressed)
         return TYPE_PUBKEY, PublicKey.from_pubkey(_bytes[1:34])
 
@@ -306,7 +337,7 @@ def parse_input(vds):
     d['prevout_n'] = prevout_n
     d['sequence'] = sequence
     d['address'] = UnknownAddress()
-    if prevout_hash == '00'*32:
+    if prevout_hash == '00' * 32:
         d['type'] = 'coinbase'
         d['scriptSig'] = bh2u(scriptSig)
     else:
@@ -320,7 +351,8 @@ def parse_input(vds):
         try:
             parse_scriptSig(d, scriptSig)
         except Exception as e:
-            print_error('{}: Failed to parse tx input {}:{}, probably a p2sh (non multisig?). Exception was: {}'.format(__name__, prevout_hash, prevout_n, repr(e)))
+            print_error('{}: Failed to parse tx input {}:{}, probably a p2sh (non multisig?). Exception was: {}'.format(
+                __name__, prevout_hash, prevout_n, repr(e)))
             # that whole heuristic codepath is fragile; just ignore it when it dies.
             # failing tx examples:
             # 1c671eb25a20aaff28b2fa4254003c201155b54c73ac7cf9c309d835deed85ee
@@ -334,9 +366,29 @@ def parse_input(vds):
     return d
 
 
+CONTRACT_FLAG = 0x8000000000000000
+MAX_CONTRACT_TYPE = CONTRACT_FLAG | 3
+
+
 def parse_output(vds, i):
     d = {}
-    d['value'] = vds.read_int64()
+    contract_type = vds.read_int64()
+    is_contract = contract_type & CONTRACT_FLAG and MAX_CONTRACT_TYPE >= contract_type
+    if is_contract:
+        d['contract'] = {
+            'type': contract_type,
+            'outpoint': {
+                'hash': hash_encode(vds.read_bytes(32)),
+                'index': vds.read_uint32(),
+            },
+            'value': int.from_bytes(vds.read_bytes(32), 'little', signed=False),
+            'max_supply': int.from_bytes(vds.read_bytes(32), 'little', signed=False),
+            'metadata': vds.read_bytes(vds.read_compact_size()).decode('utf-8'),
+        }
+        d['value'] = vds.read_int64()
+        if d['value'] > 0: d['value'] = 0
+    else:
+        d['value'] = contract_type
     scriptPubKey = vds.read_bytes(vds.read_compact_size())
     d['type'], d['address'] = get_address_from_output_script(scriptPubKey)
     d['scriptPubKey'] = bh2u(scriptPubKey)
@@ -356,7 +408,7 @@ def deserialize(raw):
     d['outputs'] = [parse_output(vds, i) for i in range(n_vout)]
     d['lockTime'] = vds.read_uint32()
     if vds.can_read_more():
-        raise SerializationError('extra junk at the end')
+        raise SerializationError("extra junk at the end")
     return d
 
 
@@ -406,7 +458,7 @@ class Transaction:
         #
         # It is also used to store the 'fetched_inputs' which are asynchronously
         # retrieved inputs (by retrieving prevout_hash tx's), see
-        #`fetch_input_data`.
+        # `fetch_input_data`.
         #
         # Values in this dict are advisory only and may or may not always be
         # there!
@@ -495,8 +547,10 @@ class Transaction:
                     added = True
             if not added:
                 resn = ', '.join(reversed(reason)) if reason else ''
-                print_error("failed to add signature {} for any pubkey for reason(s): '{}' ; pubkey(s) / sig / pre_hash = ".format(i, resn),
-                            pubkeys, '/', sig, '/', bh2u(pre_hash))
+                print_error(
+                    "failed to add signature {} for any pubkey for reason(s): '{}' ; pubkey(s) / sig / pre_hash = ".format(
+                        i, resn),
+                    pubkeys, '/', sig, '/', bh2u(pre_hash))
         # redo raw
         self.raw = self.serialize()
 
@@ -504,8 +558,8 @@ class Transaction:
         ''' Return True IFF any of the signatures for a particular input
         are Schnorr signatures (Schnorr signatures are always 64 bytes + 1) '''
         if (isinstance(self._inputs, (list, tuple))
-                and input_idx < len(self._inputs)
-                and self._inputs[input_idx]):
+            and input_idx < len(self._inputs)
+            and self._inputs[input_idx]):
             # Schnorr sigs are always 64 bytes. However the sig has a hash byte
             # at the end, so that's 65. Plus we are hex encoded, so 65*2=130
             return any(isinstance(sig, (str, bytes)) and len(sig) == 130
@@ -581,7 +635,7 @@ class Transaction:
                 siglen = 0x41
             else:
                 siglen = 0x48
-            sig_list = [ "00" * siglen ] * num_sig
+            sig_list = ["00" * siglen] * num_sig
         else:
             pubkeys, x_pubkeys = self.get_sorted_pubkeys(txin)
             x_signatures = txin['signatures']
@@ -635,7 +689,6 @@ class Transaction:
         signatures = list(filter(None, x_signatures))
         return len(signatures) == num_sig
 
-
     @classmethod
     def get_preimage_script(self, txin):
         _type = txin['type']
@@ -662,7 +715,7 @@ class Transaction:
         # Prev hash and index
         s = self.serialize_outpoint(txin)
         # Script length, script, sequence
-        s += var_int(len(script)//2)
+        s += var_int(len(script) // 2)
         s += script
         s += int_to_hex(txin.get('sequence', 0xffffffff - 1), 4)
         # offline signing needs to know the input value
@@ -674,14 +727,14 @@ class Transaction:
 
     def BIP_LI01_sort(self):
         # See https://github.com/kristovatlas/rfc/blob/master/bips/bip-li01.mediawiki
-        self._inputs.sort(key = lambda i: (i['prevout_hash'], i['prevout_n']))
-        self._outputs.sort(key = lambda o: (o[2], self.pay_script(o[1])))
+        self._inputs.sort(key=lambda i: (i['prevout_hash'], i['prevout_n']))
+        self._outputs.sort(key=lambda o: (o[2], self.pay_script(o[1])))
 
     def serialize_output(self, output):
         output_type, addr, amount = output
         s = int_to_hex(amount, 8)
         script = self.pay_script(addr)
-        s += var_int(len(script)//2)
+        s += var_int(len(script) // 2)
         s += script
         return s
 
@@ -699,8 +752,10 @@ class Transaction:
         has mutated the transaction after computing its signatures and would
         like to explicitly delete the cached common sighash. See
         `calc_common_sighash` below. '''
-        try: del self._cached_sighash_tup
-        except AttributeError: pass
+        try:
+            del self._cached_sighash_tup
+        except AttributeError:
+            pass
 
     def calc_common_sighash(self, use_cache=False):
         """ Calculate the common sighash components that are used by
@@ -743,7 +798,7 @@ class Transaction:
         self._cached_sighash_tup = meta, res
         return res
 
-    def serialize_preimage(self, i, nHashType=0x00000001, use_cache = False):
+    def serialize_preimage(self, i, nHashType=0x00000001, use_cache=False):
         """ See `.calc_common_sighash` for explanation of use_cache feature """
         if (nHashType & 0xff) != 1:
             raise ValueError("other hashtypes not supported; submit a PR to fix this!")
@@ -762,11 +817,11 @@ class Transaction:
             raise InputValueMissing
         nSequence = int_to_hex(txin.get('sequence', 0xffffffff - 1), 4)
 
-        hashPrevouts, hashSequence, hashOutputs = self.calc_common_sighash(use_cache = use_cache)
+        hashPrevouts, hashSequence, hashOutputs = self.calc_common_sighash(use_cache=use_cache)
 
-        preimage = nVersion + bh2u(hashPrevouts) + bh2u(hashSequence) + outpoint + scriptCode + amount + nSequence + bh2u(hashOutputs) + nLocktime + nHashType
+        preimage = nVersion + bh2u(hashPrevouts) + bh2u(
+            hashSequence) + outpoint + scriptCode + amount + nSequence + bh2u(hashOutputs) + nLocktime + nHashType
         return preimage
-
 
     def rpa_paycode_swap_dummy_for_destination(self, rpa_dummy_address, rpa_destination_address):
         # This method was created for RPA - reusable payment address.
@@ -798,7 +853,9 @@ class Transaction:
         nLocktime = int_to_hex(self.locktime, 4)
         inputs = self.inputs()
         outputs = self.outputs()
-        txins = var_int(len(inputs)) + ''.join(self.serialize_input(txin, self.input_script(txin, estimate_size, self._sign_schnorr), estimate_size) for txin in inputs)
+        txins = var_int(len(inputs)) + ''.join(
+            self.serialize_input(txin, self.input_script(txin, estimate_size, self._sign_schnorr), estimate_size) for
+            txin in inputs)
         txouts = var_int(len(outputs)) + ''.join(self.serialize_output(o) for o in outputs)
         return nVersion + txins + txouts + nLocktime
 
@@ -825,7 +882,7 @@ class Transaction:
         return self.txid()
 
     @staticmethod
-    def _txid(raw_hex : str) -> str:
+    def _txid(raw_hex: str) -> str:
         return bh2u(Hash(bfh(raw_hex))[::-1])
 
     def add_inputs(self, inputs):
@@ -879,7 +936,7 @@ class Transaction:
         for txin in self.inputs():
             if txin['type'] == 'coinbase':
                 continue
-            signatures = list(filter(None, txin.get('signatures',[])))
+            signatures = list(filter(None, txin.get('signatures', [])))
             s += len(signatures)
             r += txin.get('num_sig', -1)
         return s, r
@@ -898,7 +955,7 @@ class Transaction:
         Optional arg 'reason' should be a list which will have a string pushed
         at the front (failure reason) on False return. '''
         if (any(not arg or not isinstance(arg, bytes) for arg in (pubkey, sig, msghash))
-                or len(msghash) != 32):
+            or len(msghash) != 32):
             raise ValueError('bad arguments to verify_signature')
         if len(sig) == 64:
             # Schnorr signatures are always exactly 64 bytes
@@ -910,8 +967,8 @@ class Transaction:
             try:
                 pubkey_point = ser_to_point(pubkey)
                 vk = MyVerifyingKey.from_public_point(pubkey_point, curve=SECP256k1)
-                if vk.verify_digest(sig, msghash, sigdecode = ecdsa.util.sigdecode_der):
-                   return True
+                if vk.verify_digest(sig, msghash, sigdecode=ecdsa.util.sigdecode_der):
+                    return True
             except (AssertionError, ValueError, TypeError,
                     BadSignatureError, BadDigestError, UnexpectedDER) as e:
                 # ser_to_point will fail if pubkey is off-curve, infinity, or garbage.
@@ -924,15 +981,15 @@ class Transaction:
                     reason.insert(0, repr(e))
             return False
 
-
     @staticmethod
     def _ecdsa_sign(sec, pre_hash):
         pkey = regenerate_key(sec)
         secexp = pkey.secret
-        private_key = MySigningKey.from_secret_exponent(secexp, curve = SECP256k1)
+        private_key = MySigningKey.from_secret_exponent(secexp, curve=SECP256k1)
         public_key = private_key.get_verifying_key()
-        sig = private_key.sign_digest_deterministic(pre_hash, hashfunc=hashlib.sha256, sigencode = ecdsa.util.sigencode_der)
-        assert public_key.verify_digest(sig, pre_hash, sigdecode = ecdsa.util.sigdecode_der)
+        sig = private_key.sign_digest_deterministic(pre_hash, hashfunc=hashlib.sha256,
+                                                    sigencode=ecdsa.util.sigencode_der)
+        assert public_key.verify_digest(sig, pre_hash, sigdecode=ecdsa.util.sigdecode_der)
         return sig
 
     @staticmethod
@@ -941,7 +998,6 @@ class Transaction:
         sig = schnorr.sign(sec, pre_hash, ndata=ndata)
         assert schnorr.verify(pubkey, sig, pre_hash)  # verify what we just signed
         return sig
-
 
     def sign(self, keypairs, *, use_cache=False, ndata=None):
         for i, txin in enumerate(self.inputs()):
@@ -960,15 +1016,15 @@ class Transaction:
                     continue
                 print_error(f"adding signature for input#{i} sig#{j}; {kname}: {_pubkey} schnorr: {self._sign_schnorr}")
                 sec, compressed = keypairs.get(_pubkey)
-                self._sign_txin(i, j, sec, compressed, use_cache=use_cache,ndata=ndata)
+                self._sign_txin(i, j, sec, compressed, use_cache=use_cache, ndata=ndata)
         print_error("is_complete", self.is_complete())
         self.raw = self.serialize()
 
-    def _sign_txin(self, i, j, sec, compressed, *, use_cache=False,ndata=None):
+    def _sign_txin(self, i, j, sec, compressed, *, use_cache=False, ndata=None):
         '''Note: precondition is self._inputs is valid (ie: tx is already deserialized)'''
         pubkey = public_key_from_private_key(sec, compressed)
         # add signature
-        nHashType = 0x00000001 # hardcoded, perhaps should be taken from unsigned input dict
+        nHashType = 0x00000001  # hardcoded, perhaps should be taken from unsigned input dict
         pre_hash = Hash(bfh(self.serialize_preimage(i, nHashType, use_cache=use_cache)))
         if self._sign_schnorr:
             sig = self._schnorr_sign(pubkey, sec, pre_hash, ndata=ndata)
@@ -980,19 +1036,18 @@ class Transaction:
             return None
         txin = self._inputs[i]
         txin['signatures'][j] = bh2u(sig + bytes((nHashType & 0xff,)))
-        txin['pubkeys'][j] = pubkey # needed for fd keys
+        txin['pubkeys'][j] = pubkey  # needed for fd keys
         return txin
 
     def get_outputs(self):
         """convert pubkeys to addresses"""
         o = []
         for type, addr, v in self.outputs():
-            o.append((addr,v))      # consider using yield (addr, v)
+            o.append((addr, v))  # consider using yield (addr, v)
         return o
 
     def get_output_addresses(self):
         return [addr for addr, val in self.get_outputs()]
-
 
     def has_address(self, addr):
         return (addr in self.get_output_addresses()) or (addr in (tx.get("address") for tx in self.inputs()))
@@ -1000,7 +1055,6 @@ class Transaction:
     def is_final(self):
         return not any([x.get('sequence', 0xffffffff - 1) < 0xffffffff - 1
                         for x in self.inputs()])
-
 
     def as_dict(self):
         if self.raw is None:
@@ -1066,7 +1120,7 @@ class Transaction:
             inps = []
         else:
             # may be a new list or list that was already in dict
-            inps = self.fetched_inputs(require_complete = True)
+            inps = self.fetched_inputs(require_complete=True)
         if len(self._inputs) == len(inps):
             # we already have results, don't do anything.
             return False
@@ -1083,6 +1137,7 @@ class Transaction:
         t = None
         cls = __class__
         self_txid = self.txid()
+
         def doIt():
             '''
             This function is seemingly complex, but it's really conceptually
@@ -1098,18 +1153,21 @@ class Transaction:
             cd8fcc8ad75267ff9ad314e770a66a9e871be7882b7c05a7e5271c46bfca98bc '''
             last_prog = -9999.0
             need_dl_txids = defaultdict(list)  # the dict of txids we will need to download (wasn't in cache)
+
             def prog(i, prog_total=100):
                 ''' notify interested code about progress '''
                 nonlocal last_prog
                 if prog_callback:
-                    prog = ((i+1)*100.0)/prog_total
+                    prog = ((i + 1) * 100.0) / prog_total
                     if prog - last_prog > 5.0:
                         prog_callback(prog)
                         last_prog = prog
+
             while eph.get('_fetch') == t and len(inps) < len(self._inputs):
                 i = len(inps)
                 inp = deepcopy(self._inputs[i])
-                typ, prevout_hash, n, addr, value = inp.get('type'), inp.get('prevout_hash'), inp.get('prevout_n'), inp.get('address'), inp.get('value')
+                typ, prevout_hash, n, addr, value = inp.get('type'), inp.get('prevout_hash'), inp.get(
+                    'prevout_n'), inp.get('address'), inp.get('value')
                 if not prevout_hash or n is None:
                     raise RuntimeError('Missing prevout_hash and/or prevout_n')
                 if typ != 'coinbase' and (not isinstance(addr, Address) or value is None):
@@ -1134,15 +1192,18 @@ class Transaction:
                                 # we trust wallet tx's and the network
                                 # tx's that fail this check are never
                                 # put in cache anyway.
-                                #txid = tx._txid(tx.raw)
-                                #if txid != prevout_hash: # sanity check
+                                # txid = tx._txid(tx.raw)
+                                # if txid != prevout_hash: # sanity check
                                 #    print_error("fetch_input_data: cached prevout_hash {} != tx.txid() {}, ignoring.".format(prevout_hash, txid))
                             except Exception as e:
-                                print_error("fetch_input_data: WARNING failed to deserialize {}: {}".format(prevout_hash, repr(e)))
+                                print_error(
+                                    "fetch_input_data: WARNING failed to deserialize {}: {}".format(prevout_hash,
+                                                                                                    repr(e)))
                                 tx = None
                         else:
                             tx = None
-                            print_error("fetch_input_data: WARNING cached tx lacked any 'raw' bytes for {}".format(prevout_hash))
+                            print_error("fetch_input_data: WARNING cached tx lacked any 'raw' bytes for {}".format(
+                                prevout_hash))
                     # now, examine the deserialized tx, if it's still good
                     if tx:
                         if n < len(tx.outputs()):
@@ -1152,14 +1213,16 @@ class Transaction:
                             inp['address'] = addr
                             print_error("fetch_input_data: fetched cached", i, addr, value)
                         else:
-                            print_error("fetch_input_data: ** FIXME ** should never happen -- n={} >= len(tx.outputs())={} for prevout {}".format(n, len(tx.outputs()), prevout_hash))
+                            print_error(
+                                "fetch_input_data: ** FIXME ** should never happen -- n={} >= len(tx.outputs())={} for prevout {}".format(
+                                    n, len(tx.outputs()), prevout_hash))
                     else:
                         # tx was not in cache or wallet.transactions, mark
                         # it for download below (this branch can also execute
                         # in the unlikely case where there was an error above)
                         need_dl_txids[prevout_hash].append((i, n))  # remember the input# as well as the prevout_n
 
-                inps.append(inp) # append either cached result or as-yet-incomplete copy of _inputs[i]
+                inps.append(inp)  # append either cached result or as-yet-incomplete copy of _inputs[i]
             # Now, download the tx's we didn't find above if network is available
             # and caller said it's ok to go out ot network.. otherwise just return
             # what we have
@@ -1172,6 +1235,7 @@ class Transaction:
                     q = queue.Queue()
                     q_ct = 0
                     bad_txids = set()
+
                     def put_in_queue_and_cache(r):
                         ''' we cache the results directly in the network callback
                         as even if the user cancels the operation, we would like
@@ -1197,6 +1261,7 @@ class Transaction:
                             if txid:  # txid may be '' if KeyError from r['result'] above
                                 bad_txids.add(txid)
                             print_error("fetch_input_data: put_in_queue_and_cache fail for txid:", txid, repr(e))
+
                     for txid, l in need_dl_txids.items():
                         wallet.network.queue_request('blockchain.transaction.get', [txid],
                                                      interface='random',
@@ -1208,6 +1273,7 @@ class Transaction:
                         if eph.get('block_height'):
                             return False
                         lh = wallet.network.get_server_height() or wallet.get_local_height()
+
                         def got_tx_info(r):
                             q.put('block_height')  # indicate to other thread we got the block_height reply from network
                             try:
@@ -1220,16 +1286,19 @@ class Transaction:
                                     print_error('fetch_input_data: tx block height could not be determined')
                             except Exception as e:
                                 print_error('fetch_input_data: get_bh fail:', str(e), r)
+
                         if self_txid:
-                            wallet.network.queue_request('blockchain.transaction.get', [self_txid,True],
+                            wallet.network.queue_request('blockchain.transaction.get', [self_txid, True],
                                                          interface=None, callback=got_tx_info)
                             callback_funcs_to_cancel.add(got_tx_info)
                             return True
+
                     if get_bh():
                         q_ct += 1
 
                     class ErrorResp(Exception):
                         pass
+
                     for i in range(q_ct):
                         # now, read the q back, with a 10 second timeout, and
                         # populate the inputs
@@ -1249,7 +1318,8 @@ class Transaction:
                             rawhex = r['result']
                             txid = r['params'][0]
                             assert txid not in bad_txids, "txid marked bad"  # skip if was marked bad by our callback code
-                            tx = Transaction(rawhex); tx.deserialize()
+                            tx = Transaction(rawhex);
+                            tx.deserialize()
                             for item in need_dl_txids[txid]:
                                 ii, n = item
                                 assert n < len(tx.outputs())
@@ -1270,10 +1340,12 @@ class Transaction:
                     for func in callback_funcs_to_cancel:
                         wallet.network.cancel_requests(func)
             if len(inps) == len(self._inputs) and eph.get('_fetch') == t:  # sanity check
-                eph.pop('_fetch', None)  # potential race condition here, popping wrong t -- but in practice w/ CPython threading it won't matter
-                print_error(f"fetch_input_data: elapsed {(time.time()-t0):.4f} sec")
+                eph.pop('_fetch',
+                        None)  # potential race condition here, popping wrong t -- but in practice w/ CPython threading it won't matter
+                print_error(f"fetch_input_data: elapsed {(time.time() - t0):.4f} sec")
                 if done_callback:
                     done_callback(*done_args)
+
         # /doIt
         t = threading.Thread(target=doIt, daemon=True)
         eph['_fetch'] = t
@@ -1309,7 +1381,7 @@ class Transaction:
         return bool(self.ephemeral.pop('_fetch', None))
 
     @classmethod
-    def tx_cache_get(cls, txid : str) -> object:
+    def tx_cache_get(cls, txid: str) -> object:
         ''' Attempts to retrieve txid from the tx cache that this class
         keeps in-memory.  Returns None on failure. The returned tx is
         not deserialized, and is a copy of the one in the cache. '''
@@ -1323,7 +1395,7 @@ class Transaction:
         return None
 
     @classmethod
-    def tx_cache_put(cls, tx : object, txid : str = None):
+    def tx_cache_put(cls, tx: object, txid: str = None):
         ''' Puts a non-deserialized copy of tx into the tx_cache. '''
         if not tx or not tx.raw:
             raise ValueError('Please pass a tx which has a valid .raw attribute!')
@@ -1353,6 +1425,7 @@ def tx_from_str(txt):
 class OPReturn:
     ''' OPReturn helper namespace. Used by GUI main_window.py and also
     electroncash/commands.py '''
+
     class Error(Exception):
         """ thrown when the OP_RETURN for a tx not of the right format """
 
