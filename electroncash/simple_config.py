@@ -313,7 +313,7 @@ class SimpleConfig(PrintError):
        if retval is None:
            retval = self.get('fee_per_kb')
        if retval is None:
-           retval = 8000  # New wallet
+           retval = 5e5  # New wallet
        return retval
 
     def has_custom_fee_rate(self):
